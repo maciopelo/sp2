@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="819dd511-2bdf-42e1-8d9e-96f8f70afd7c" name="Default Changelist" comment="Add BadFileException">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/examples/chessboard_test.gly" beforeDir="false" afterPath="$PROJECT_DIR$/tests/examples/chessboard_test.gly" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit_tests/recursive_groups_test.gly" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit_tests/recursive_groups_test.gly" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="advance_bash" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1qqZU6nqCRLlDeBHEitQScARPF6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="819dd511-2bdf-42e1-8d9e-96f8f70afd7c" name="Default Changelist" comment="" />
+      <created>1617809093386</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1617809093386</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Refactor main logic functions in GraphlyProgram class. Add several test files">
+      <created>1619087312846</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1619087312846</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Split program into two runs. Implement canvas initialization check algorithm (first run). Refactor main program into separate files. Remove old java files">
+      <created>1619108821734</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1619108821734</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Refactor main function">
+      <created>1619460619299</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1619460619299</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add exception service to visitor">
+      <created>1619699285882</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1619699285882</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add exception service to visitor">
+      <created>1619699294252</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1619699294252</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add groupMember. Add transformation on groups. Refactor grammar layout">
+      <created>1622055394419</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1622055394420</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Change ErrorListener usage (first, not second run). Add few more tests">
+      <created>1622111402163</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1622111402163</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add some test examples. Fix bug with BadArgumentException in rotating and scaling">
+      <created>1623321358032</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1623321358032</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fix bug with loops exception">
+      <created>1623323901638</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1623323901638</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fix small bug">
+      <created>1623348220844</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1623348220844</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fix bug with bash. Add optional stacktrace printing and exception service">
+      <created>1623756271636</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1623756271636</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add BadFileException">
+      <created>1623756901060</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1623756901060</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Refactor main logic functions in GraphlyProgram class. Add several test files" />
+    <MESSAGE value="Split program into two runs. Implement canvas initialization check algorithm (first run). Refactor main program into separate files. Remove old java files" />
+    <MESSAGE value="Refactor main function" />
+    <MESSAGE value="Add exception service to visitor" />
+    <MESSAGE value="Add groupMember. Add transformation on groups. Refactor grammar layout" />
+    <MESSAGE value="Change ErrorListener usage (first, not second run). Add few more tests" />
+    <MESSAGE value="Add some test examples. Fix bug with BadArgumentException in rotating and scaling" />
+    <MESSAGE value="Fix bug with loops exception" />
+    <MESSAGE value="Fix small bug" />
+    <MESSAGE value="Fix bug with bash. Add optional stacktrace printing and exception service" />
+    <MESSAGE value="Add BadFileException" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add BadFileException" />
+  </component>
+</project>
