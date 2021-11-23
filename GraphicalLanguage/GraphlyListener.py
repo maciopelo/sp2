@@ -44,12 +44,12 @@ class GraphlyListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by GraphlyParser#check.
-    def enterCheck(self, ctx:GraphlyParser.CheckContext):
+    # Enter a parse tree produced by GraphlyParser#conditional.
+    def enterConditional(self, ctx:GraphlyParser.ConditionalContext):
         pass
 
-    # Exit a parse tree produced by GraphlyParser#check.
-    def exitCheck(self, ctx:GraphlyParser.CheckContext):
+    # Exit a parse tree produced by GraphlyParser#conditional.
+    def exitConditional(self, ctx:GraphlyParser.ConditionalContext):
         pass
 
 
@@ -80,6 +80,15 @@ class GraphlyListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by GraphlyParser#vector.
+    def enterVector(self, ctx:GraphlyParser.VectorContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#vector.
+    def exitVector(self, ctx:GraphlyParser.VectorContext):
+        pass
+
+
     # Enter a parse tree produced by GraphlyParser#segment.
     def enterSegment(self, ctx:GraphlyParser.SegmentContext):
         pass
@@ -104,6 +113,69 @@ class GraphlyListener(ParseTreeListener):
 
     # Exit a parse tree produced by GraphlyParser#polygon.
     def exitPolygon(self, ctx:GraphlyParser.PolygonContext):
+        pass
+
+
+    # Enter a parse tree produced by GraphlyParser#axis.
+    def enterAxis(self, ctx:GraphlyParser.AxisContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#axis.
+    def exitAxis(self, ctx:GraphlyParser.AxisContext):
+        pass
+
+
+    # Enter a parse tree produced by GraphlyParser#sphere.
+    def enterSphere(self, ctx:GraphlyParser.SphereContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#sphere.
+    def exitSphere(self, ctx:GraphlyParser.SphereContext):
+        pass
+
+
+    # Enter a parse tree produced by GraphlyParser#box.
+    def enterBox(self, ctx:GraphlyParser.BoxContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#box.
+    def exitBox(self, ctx:GraphlyParser.BoxContext):
+        pass
+
+
+    # Enter a parse tree produced by GraphlyParser#curve.
+    def enterCurve(self, ctx:GraphlyParser.CurveContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#curve.
+    def exitCurve(self, ctx:GraphlyParser.CurveContext):
+        pass
+
+
+    # Enter a parse tree produced by GraphlyParser#pyramid.
+    def enterPyramid(self, ctx:GraphlyParser.PyramidContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#pyramid.
+    def exitPyramid(self, ctx:GraphlyParser.PyramidContext):
+        pass
+
+
+    # Enter a parse tree produced by GraphlyParser#ring.
+    def enterRing(self, ctx:GraphlyParser.RingContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#ring.
+    def exitRing(self, ctx:GraphlyParser.RingContext):
+        pass
+
+
+    # Enter a parse tree produced by GraphlyParser#cylinder.
+    def enterCylinder(self, ctx:GraphlyParser.CylinderContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#cylinder.
+    def exitCylinder(self, ctx:GraphlyParser.CylinderContext):
         pass
 
 
@@ -149,6 +221,15 @@ class GraphlyListener(ParseTreeListener):
 
     # Exit a parse tree produced by GraphlyParser#canvas.
     def exitCanvas(self, ctx:GraphlyParser.CanvasContext):
+        pass
+
+
+    # Enter a parse tree produced by GraphlyParser#drawMode.
+    def enterDrawMode(self, ctx:GraphlyParser.DrawModeContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#drawMode.
+    def exitDrawMode(self, ctx:GraphlyParser.DrawModeContext):
         pass
 
 

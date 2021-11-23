@@ -29,8 +29,8 @@ class GraphlyVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphlyParser#check.
-    def visitCheck(self, ctx:GraphlyParser.CheckContext):
+    # Visit a parse tree produced by GraphlyParser#conditional.
+    def visitConditional(self, ctx:GraphlyParser.ConditionalContext):
         return self.visitChildren(ctx)
 
 
@@ -49,6 +49,11 @@ class GraphlyVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by GraphlyParser#vector.
+    def visitVector(self, ctx:GraphlyParser.VectorContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by GraphlyParser#segment.
     def visitSegment(self, ctx:GraphlyParser.SegmentContext):
         return self.visitChildren(ctx)
@@ -61,6 +66,41 @@ class GraphlyVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphlyParser#polygon.
     def visitPolygon(self, ctx:GraphlyParser.PolygonContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphlyParser#axis.
+    def visitAxis(self, ctx:GraphlyParser.AxisContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphlyParser#sphere.
+    def visitSphere(self, ctx:GraphlyParser.SphereContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphlyParser#box.
+    def visitBox(self, ctx:GraphlyParser.BoxContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphlyParser#curve.
+    def visitCurve(self, ctx:GraphlyParser.CurveContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphlyParser#pyramid.
+    def visitPyramid(self, ctx:GraphlyParser.PyramidContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphlyParser#ring.
+    def visitRing(self, ctx:GraphlyParser.RingContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphlyParser#cylinder.
+    def visitCylinder(self, ctx:GraphlyParser.CylinderContext):
         return self.visitChildren(ctx)
 
 
@@ -86,6 +126,11 @@ class GraphlyVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphlyParser#canvas.
     def visitCanvas(self, ctx:GraphlyParser.CanvasContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphlyParser#drawMode.
+    def visitDrawMode(self, ctx:GraphlyParser.DrawModeContext):
         return self.visitChildren(ctx)
 
 
