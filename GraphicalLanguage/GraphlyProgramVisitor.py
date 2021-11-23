@@ -54,6 +54,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             int: "num",
             float: "num",
             Point: "point",
+            # Vector: "vector",
             Segment: "segment",
             Circle: "circle",
             Polygon: "polygon",
@@ -64,7 +65,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
         }
 
         self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
-        self.group_member_types = ("shapes", "circles", "points", "polygons", "segments", "drawables")
+        self.group_member_types = ("shapes", "circles", "points", "vectors", "polygons", "segments", "drawables")
 
     def variable_exists(self, variable):
         # Checks if variable exists in the current scope
@@ -140,7 +141,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             self.set_variable(name, iterator)
 
 
-    def visitCheck(self, ctx: GraphlyParser.CheckContext):
+    def visitConditional(self, ctx:GraphlyParser.ConditionalContext):
         do_else = True
         for cb in ctx.condition_block():
             if self.visit(cb.expr()):
@@ -162,6 +163,20 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             point = Point(name, x_cord, y_cord)
 
             self.set_variable(name, point)
+        else:
+            raise VariableAlreadyDeclaredException(ctx.start.line, name)
+
+    def visitVector(self, ctx:GraphlyParser.VectorContext):
+        name = ctx.NAME()
+        
+        if not self.variable_exists(name):
+            x_cord = self.visit(ctx.x)
+            y_cord = self.visit(ctx.y)
+            z_cord = self.visit(ctx.z)
+
+            # vector = Vector(name, x_cord, y_cord, z_cord)
+
+            # self.set_variable(name, vector)
         else:
             raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
@@ -230,6 +245,41 @@ class GraphlyProgramVisitor(GraphlyVisitor):
         else:
             raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
+
+    def visitAxis(self, ctx:GraphlyParser.AxisContext):
+        name = ctx.NAME(0).getText()
+        initial = ctx.NAME(1).getText()
+        terminal = ctx.NAME(2).getText()
+
+
+    def visitSphere(self, ctx:GraphlyParser.SphereContext):
+        name = ctx.NAME(0).getText()
+        position_name = ctx.NAME(1).getText()
+        redius = self.visit(ctx.radius)
+
+
+    def visitBox(self, ctx:GraphlyParser.BoxContext):
+        name = ctx.NAME(0).getText()
+        position_vector_name = ctx.NAME(1).getText()
+        size_vector_name = ctx.NAME(2).getText()
+
+
+    def visitCurve(self, ctx:GraphlyParser.CurveContext):
+        pass
+
+
+    def visitPyramid(self, ctx:GraphlyParser.PyramidContext):
+        pass
+
+
+    def visitRing(self, ctx:GraphlyParser.RingContext):
+        pass
+
+
+    def visitCylinder(self, ctx:GraphlyParser.CylinderContext):
+        pass
+
+
     def visitGroup(self, ctx: GraphlyParser.GroupContext):
         name_tokens = ctx.getTokens(GraphlyParser.NAME)
 
@@ -292,6 +342,10 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             self.screen.fill(self.colors[color])
         else:
             raise BadColorException(ctx.start.line, color)
+
+    
+    def visitDrawMode(self, ctx:GraphlyParser.DrawModeContext):
+        pass
 
 
     def visitGroupMember(self, ctx: GraphlyParser.GroupMemberContext):

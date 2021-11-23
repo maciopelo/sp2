@@ -31,13 +31,14 @@ program
 
 instruction 
 	: canvas
+	| drawMode
 	| shape 
 	| num
 	| draw 
 	| transformation 
 	| group 
 	| loop 
-	| check
+	| conditional
 	| assign
 	| log
 	| save
@@ -62,10 +63,10 @@ loop
 	'end'
 	;
 
-check 
+conditional
 	: 
-	WS* 'check' WS+ condition_block 
-	('else' WS+ 'check' WS+ condition_block)* WS* 
+	WS* 'if' WS+ condition_block 
+	('else' WS+ 'if' WS+ condition_block)* WS* 
 	('else' WS+ 'then' '\n' block)? WS* 
 	'end'
 	;
@@ -82,15 +83,29 @@ condition_block
 shape 
 	: 
 	point 
+	| vector
 	| segment 
 	| circle 
 	| polygon
+	| axis
+	| sphere
+	| box
+	| curve
+	| pyramid
+	| ring
+	| cylinder
 	;
 
 point 
 	: 
 	WS* 'point' WS+ NAME WS* ':' 
 	WS* x=expr WS* ',' WS* y=expr
+	;
+
+vector
+	:
+	WS* 'vector' WS+ NAME WS* ':'
+	WS* x=expr WS* ',' WS* y=expr WS* ',' WS* z=expr
 	;
 
 segment 
@@ -111,6 +126,48 @@ polygon
 	WS* NAME
 	;
 
+axis
+	:
+	WS* 'axis' WS+ NAME WS* ':'
+	WS* NAME WS* ',' WS* NAME
+	;
+
+sphere
+	:
+	WS* 'sphere' WS+ NAME WS* ':'
+	WS* NAME WS* ',' WS* radius=expr
+	;
+
+box
+	:
+	WS* 'sphere' WS+ NAME WS* ':'
+	WS* NAME WS* ',' WS* NAME
+	;
+	
+curve
+	:
+	WS* 'curve' WS+ NAME WS* ':'
+	WS* NAME
+	;
+	
+pyramid
+	:
+	WS* 'pyramid' WS+ NAME WS* ':'
+	WS* NAME WS* ',' WS* NAME
+	;
+	
+ring
+	:
+	WS* 'ring' WS+ NAME WS* ':'
+	WS* NAME WS* ',' WS* NAME WS* ',' WS* radius=expr WS* ',' WS* thickness=expr
+	;
+
+cylinder
+	:
+	WS* 'cylinder' WS+ NAME WS* ':'
+	WS* NAME WS* ',' WS* NAME WS* ',' WS* radius=expr
+	;
+
 groupMember 
 	: 
 	WS* NAME WS* '[' WS* expr WS* ']'
@@ -119,12 +176,12 @@ groupMember
 transformable
 	:
 	NAME 
-	| groupMember
+	|  groupMember
 	;
 
 group 
 	: 
-	WS* 'group' WS* '<' WS* TYPE WS* '>' WS+ NAME WS* ':' 
+	WS* 'list' WS* '<' WS* TYPE WS* '>' WS+ NAME WS* ':' 
 	WS* NAME WS* (',' WS* NAME WS*)*
 	;
 
@@ -143,6 +200,12 @@ canvas
 	: 
 	WS* 'canvas' WS* ':'
 	WS* x=expr WS* ',' WS* y=expr WS* ',' WS* COLOR
+	;
+
+drawMode
+	:
+	WS* 'mode' WS* ':'
+	WS* MODE
 	;
 
 draw 
@@ -234,6 +297,11 @@ atom
     ;
 
 // terminal
+
+MODE
+	:
+	'2D' | '3D'
+	;
 
 ITR
 	: 
