@@ -19,7 +19,7 @@ from exceptions.BadFlagException import BadFlagException
 
 
 def check_canvas(argv):  # first run of program
-    print("Checking canvas...", end=" ")
+    print("Checking script...", end=" ")
 
     input_stream = antlr4.FileStream(argv[1])
 
@@ -34,6 +34,7 @@ def check_canvas(argv):  # first run of program
     parser.addErrorListener(ThrowingErrorListener())
 
     tree = parser.program()
+
     graph = GraphlyCanvasChecker()
 
     tree_walker = antlr4.ParseTreeWalker()
@@ -63,16 +64,22 @@ def execute_graphly_script(argv):  # second run of program
 
     filename = splitext(argv[1])[0]
 
-    GraphlyProgramVisitor(filename).visit(tree)
+    gpv = GraphlyProgramVisitor(filename)
+    gpv.visit(tree)
+    mode = gpv.mode
 
-    run = True
+    
 
-    while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
+    if mode == "2D":
+        pygame.display.update()
+        run = True
 
-    pygame.quit()
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+
+        pygame.quit()
 
 
 def main(argv):

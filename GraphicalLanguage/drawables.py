@@ -1,4 +1,5 @@
 import pygame
+from vpython import *
 from math import sin, cos, radians
 
 class Drawable:
@@ -259,3 +260,37 @@ class Polygon(Drawable):
             self.points[i].x = x
             self.points[i].y = y
     
+
+class Vector(Drawable):
+
+    VECTOR_RADIUS = 0.5
+
+    def __init__(self, name, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+        self.name = name
+        self.color = vec(1, 1, 1)
+
+    def get_coordination_tuple(self):
+        return self.x, self.y, self.z
+
+    def __str__(self):
+        return f'<vector, {self.name}, ({self.x}, {self.y}, {self.z}), #{self.color}>'
+
+    def draw(self, screen):
+        sphere(radius=self.VECTOR_RADIUS, pos=vec(self.x, self.y, self.z), canvas=screen)
+    
+    def move(self, x, y, z):
+        self.x += x
+        self.y += y
+        self.z += z
+    
+    def place(self, point):
+        pass
+    
+    def rotate(self, point, angle):
+        pass
+    
+    def scale(self, point, factor):
+        pass

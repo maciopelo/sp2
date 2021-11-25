@@ -1,4 +1,5 @@
 import pygame
+from vpython import *
 import sys
 
 from GraphlyVisitor import GraphlyVisitor
@@ -64,7 +65,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             Drawable: "drawable"
         }
 
-        self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
+        self.mode = None
+        self.screen = None
         self.group_member_types = ("shapes", "circles", "points", "vectors", "polygons", "segments", "drawables")
 
     def variable_exists(self, variable):
@@ -85,7 +87,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
     def set_variable(self, name, value):
         # Sets/creates variable in the current scope
-        self.scopes[-1][name] = value
+        self.scopes[-1][str(name)] = value
+      
 
     
     def assign_variable(self, name, value, ctx):
@@ -113,10 +116,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
         return name[-1] == ']'
 
     def visitProgram(self, ctx: GraphlyParser.ProgramContext):
-        pygame.init()
         self.scopes.append({})
         self.visitChildren(ctx)
-        pygame.display.update()
 
     def visitBlock(self, ctx:GraphlyParser.BlockContext):
         self.scopes.append({})
@@ -174,9 +175,9 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             y_cord = self.visit(ctx.y)
             z_cord = self.visit(ctx.z)
 
-            # vector = Vector(name, x_cord, y_cord, z_cord)
-
-            # self.set_variable(name, vector)
+            vector = Vector(name, x_cord, y_cord, z_cord)
+ 
+            self.set_variable(name, vector)
         else:
             raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
@@ -336,16 +337,38 @@ class GraphlyProgramVisitor(GraphlyVisitor):
         if y <= 0:
             raise NonPositiveValueInCanvasException(ctx.start.line, y)
 
-        self.screen = pygame.display.set_mode((x, y))
 
-        if color in self.colors:
-            self.screen.fill(self.colors[color])
+        if self.mode == "2D":
+
+            self.screen = pygame.display.set_mode((x, y))
+
+            if color in self.colors:
+                self.screen.fill(self.colors[color])
+            else:
+                raise BadColorException(ctx.start.line, color)
+        
         else:
-            raise BadColorException(ctx.start.line, color)
+
+            self.screen.width = x
+            self.screen.height = y
+            colors = tuple(c/255 for c in self.colors[color])
+            self.screen.background = vec(*colors)
+            
+
 
     
     def visitDrawMode(self, ctx:GraphlyParser.DrawModeContext):
-        pass
+        mode = ctx.MODE().getText()
+        self.mode = mode
+
+        if self.mode == "2D":
+            pygame.init()
+            self.screen = pygame.display.set_mode((self.SCREEN_WIDTH, self.SCREEN_HEIGHT))
+            
+        
+        else:
+            self.screen = canvas(width=self.SCREEN_WIDTH, height=self.SCREEN_HEIGHT)
+        
 
 
     def visitGroupMember(self, ctx: GraphlyParser.GroupMemberContext):
@@ -368,8 +391,9 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
     def visitDraw(self, ctx: GraphlyParser.DrawContext):
         name = ctx.arg.getText()
+        
         variable = self.try_to_get_member(ctx, ctx.arg, name)
-
+        
         if issubclass(type(variable), Drawable):
             variable.draw(self.screen)
         else:
