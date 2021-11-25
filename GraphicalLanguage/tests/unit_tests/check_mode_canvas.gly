@@ -1,0 +1,11 @@
+mode: 3D
+
+canvas: 1000, 500, #black
+
+vector V: 0,0,0
+vector V1: 20,20,20
+
+
+
+draw V
+draw V1
