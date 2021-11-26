@@ -55,7 +55,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             int: "num",
             float: "num",
             Point: "point",
-            # Vector: "vector",
+            Vector: "vector",
             Segment: "segment",
             Circle: "circle",
             Polygon: "polygon",
@@ -168,6 +168,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
     def visitVector(self, ctx:GraphlyParser.VectorContext):
+        # print('im in vector')
         name = ctx.NAME()
         
         if not self.variable_exists(name):
@@ -176,7 +177,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             z_cord = self.visit(ctx.z)
 
             vector = Vector(name, x_cord, y_cord, z_cord)
- 
+
             self.set_variable(name, vector)
         else:
             raise VariableAlreadyDeclaredException(ctx.start.line, name)
@@ -256,21 +257,87 @@ class GraphlyProgramVisitor(GraphlyVisitor):
     def visitSphere(self, ctx:GraphlyParser.SphereContext):
         name = ctx.NAME(0).getText()
         position_name = ctx.NAME(1).getText()
-        redius = self.visit(ctx.radius)
+        radius = self.visit(ctx.radius)
+        if not self.variable_exists(name):
+            position = self.get_variable(position_name, ctx)
+
+            if type(position) == Vector:
+                #radius = self.visit(ctx.expr())
+                sphere = Sphere(name, position, radius)
+                self.set_variable(name, sphere)
+
+            else:
+                raise BadArgumentException(
+                    ctx.start.line, "sphere", position_name, self.types[type(position)])
+        else:
+            raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
 
     def visitBox(self, ctx:GraphlyParser.BoxContext):
+        print('whats in the box')
         name = ctx.NAME(0).getText()
         position_vector_name = ctx.NAME(1).getText()
         size_vector_name = ctx.NAME(2).getText()
 
+        if not self.variable_exists(name):
+            position = self.get_variable(position_vector_name,ctx)
+            size = self.get_variable(size_vector_name,ctx)
+            
+            if type(position) == Vector and type(size) == Vector:
+                box = Box(name,position,size)
+                self.set_variable(name,box)
+            else:
+                if type(position) != Vector:
+                    raise BadArgumentException(ctx.start.line, "box", position_vector_name, self.types[type(position)])
+                raise BadArgumentException(ctx.start.line, "box", size_vector_name, self.types[type(size)])
+        else:
+            raise VariableAlreadyDeclaredException(ctx.start.line, name)
+
 
     def visitCurve(self, ctx:GraphlyParser.CurveContext):
-        pass
+        name = ctx.NAME(0).getText()
+
+        print('im in curve')
+
+        if not self.variable_exists(name):
+            group_name = ctx.NAME(1).getText()
+
+            group = self.get_variable(group_name, ctx)
+
+            if type(group) == Group:
+                for member in group.members:
+                    if type(member) != Vector:
+                        raise IncorrectPolygonInitializationException(
+                            ctx.start.line, group_name, name, self.types[type(member)])
+
+                curve = Curve(name, group.members)
+
+                self.set_variable(name, curve)
+            else:
+                raise BadArgumentException(
+                    ctx.start.line, "curve", group_name, self.types[type(group)])
+        else:
+            raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
 
     def visitPyramid(self, ctx:GraphlyParser.PyramidContext):
-        pass
+        name = ctx.NAME(0).getText()
+        position_vector_name = ctx.NAME(1).getText()
+        size_vector_name = ctx.NAME(2).getText()
+
+        if not self.variable_exists(name):
+            position = self.get_variable(position_vector_name,ctx)
+            size = self.get_variable(size_vector_name,ctx)
+            
+            if type(position) == Vector and type(size) == Vector:
+                pyramid = Pyramid(name,position,size)
+                self.set_variable(name,pyramid)
+            else:
+                if type(position) != Vector:
+                    raise BadArgumentException(ctx.start.line, "pyramid", position_vector_name, self.types[type(position)])
+                raise BadArgumentException(ctx.start.line, "pyramid", size_vector_name, self.types[type(size)])
+        else:
+            raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
 
     def visitRing(self, ctx:GraphlyParser.RingContext):
@@ -282,10 +349,11 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitGroup(self, ctx: GraphlyParser.GroupContext):
+        # print('im in group!!\n')
         name_tokens = ctx.getTokens(GraphlyParser.NAME)
 
         name = name_tokens[0].getText()
-
+        
         if not self.variable_exists(name):
             group_type = ctx.TYPE().getText()
 
@@ -310,6 +378,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
                     raise BadTypeInGroupException(ctx.start.line, name, self.types[correct_type], self.types[type(member)])
 
                 group_members.append(member)
+
 
             self.set_variable(name, Group(name, group_type, group_members))
         else:

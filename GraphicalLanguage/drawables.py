@@ -294,3 +294,123 @@ class Vector(Drawable):
     
     def scale(self, point, factor):
         pass
+
+class Box(Drawable):
+    def __init__(self,name, position,size):
+        self.position = position
+        self.size = size
+        self.name = name
+        self.color = vec(1, 1, 1)
+
+    def get_coordination_tuple(self):
+        return self.position.x, self.position.y, self.position.z
+    
+    def get_size_tuple(self):
+        return self.size.x, self.size.y, self.size.z
+    def __str__(self):
+        return f'<box, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}>'
+
+    def draw(self,screen):
+        box(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen)
+    def move(self, x, y, z):
+        pass
+    
+    def place(self, point):
+        pass
+    
+    def rotate(self, point, angle):
+        pass
+    
+    def scale(self, point, factor):
+        pass
+
+class Sphere(Drawable):
+    def __init__(self,name, position,radius):
+        self.position = position
+        self.radius = radius
+        self.name = name
+        self.color = vec(1, 1, 1)
+
+    def get_coordination_tuple(self):
+        return self.position.x, self.position.y, self.position.z
+    
+    def get_radius(self):
+        return self.radius
+    def __str__(self):
+        return f'<sphere, {self.name}, ({self.position.x}, {self.position.y}, {self.position.z}),{self.radius}, #{self.color}>'
+
+    def draw(self, screen):
+        sphere(radius=self.radius, pos=vec(*self.get_coordination_tuple()), canvas=screen)
+    def move(self, x, y, z):
+        pass
+    
+    def place(self, point):
+        pass
+    
+    def rotate(self, point, angle):
+        pass
+    
+    def scale(self, point, factor):
+        pass
+
+class Pyramid(Drawable):
+    def __init__(self,name, position,size):
+        self.position = position
+        self.size = size
+        self.name = name
+        self.color = vec(1, 1, 1)
+
+    def get_coordination_tuple(self):
+        return self.position.x, self.position.y, self.position.z
+    
+    def get_size_tuple(self):
+        return self.size.x, self.size.y, self.size.z
+    def __str__(self):
+        return f'<pyramid, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}>'
+
+    def draw(self,screen):
+        pyramid(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen)
+    def move(self, x, y, z):
+        pass
+    
+    def place(self, point):
+        pass
+    
+    def rotate(self, point, angle):
+        pass
+    
+    def scale(self, point, factor):
+        pass
+
+
+class Curve(Drawable):
+    CURVE_WIDTH = 1
+    
+    def __init__(self, name, vectors):
+        self.name = name
+        self.vectors = vectors
+        self.color = (1, 1, 1)
+        self.width = self.CURVE_WIDTH
+
+    def __str__(self):
+        ret = f'<curve, {self.name}, ['
+        for p in self.vectors:
+            ret += str(p) + ', '
+        return ret[:-2] + f'], #{self.color}>'
+
+    def draw(self, screen):
+        coordination_tuples_list = [vec(*vector.get_coordination_tuple()) for vector in self.vectors]
+        curve(coordination_tuples_list)
+
+    def move(self, x, y):
+        pass
+    
+    def place(self, point):
+        pass
+
+    def rotate(self, point, angle):
+        pass
+    
+    def scale(self, point, factor):
+        pass
+    
