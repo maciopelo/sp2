@@ -1,0 +1,17 @@
+mode: 3D
+
+canvas: 600, 600, #black
+
+
+vector V1: 0, 0, 0
+vector V2: 1, 1, 1
+
+vector V3: 3, 3, 3
+vector V4: 5, 5, 5
+
+ring R1: V1, V2, 1, 0.3
+
+ring R2: V3, V4, 2, 0.1
+
+draw R1
+draw R2

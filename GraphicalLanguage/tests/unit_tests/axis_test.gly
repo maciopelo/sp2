@@ -1,0 +1,11 @@
+mode: 3D
+
+canvas: 600, 600, #black
+
+
+vector V1: 0, 0, 0
+vector V2: 1, 1, 1
+
+axis A: V1, V2
+
+draw A

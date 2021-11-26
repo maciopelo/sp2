@@ -249,9 +249,28 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitAxis(self, ctx:GraphlyParser.AxisContext):
-        name = ctx.NAME(0).getText()
-        initial = ctx.NAME(1).getText()
-        terminal = ctx.NAME(2).getText()
+        axis_name = ctx.NAME(0).getText()
+        
+
+        if not self.variable_exists(axis_name):
+            initial_vec_name = ctx.NAME(1).getText()
+            terminal_vec_name = ctx.NAME(2).getText()
+
+            initial_vec = self.get_variable(initial_vec_name, ctx)
+            terminal_vec = self.get_variable(terminal_vec_name, ctx)
+
+
+            if  type(initial_vec) == Vector and type(terminal_vec) == Vector:
+                axis = Axis(axis_name, initial_vec, terminal_vec)
+                self.set_variable(axis_name, axis)
+            else:
+                raise BadArgumentException(
+                    ctx.start.line, "axis", axis_name, self.types[type(initial_vec)])  
+    
+        else:
+            raise VariableAlreadyDeclaredException(ctx.start.line, axis_name)
+
+        
 
 
     def visitSphere(self, ctx:GraphlyParser.SphereContext):
@@ -341,11 +360,50 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitRing(self, ctx:GraphlyParser.RingContext):
-        pass
+        ring_name = ctx.NAME(0).getText()
+        
+        if not self.variable_exists(ring_name):
+            initial_vec_name = ctx.NAME(1).getText()
+            terminal_vec_name = ctx.NAME(2).getText()
+
+            initial_vec = self.get_variable(initial_vec_name, ctx)
+            terminal_vec = self.get_variable(terminal_vec_name, ctx)
+
+
+            if  type(initial_vec) == Vector and type(terminal_vec) == Vector:
+                radius = self.visit(ctx.radius)
+                thickness = self.visit(ctx.thickness)
+                ring = Ring(ring_name, initial_vec, terminal_vec, radius, thickness)
+                self.set_variable(ring_name, ring)
+            else:
+                raise BadArgumentException(
+                    ctx.start.line, "ring", ring_name, self.types[type(initial_vec)])  
+    
+        else:
+            raise VariableAlreadyDeclaredException(ctx.start.line, ring_name)
 
 
     def visitCylinder(self, ctx:GraphlyParser.CylinderContext):
-        pass
+        cylinder_name = ctx.NAME(0).getText()
+        
+        if not self.variable_exists(cylinder_name):
+            initial_vec_name = ctx.NAME(1).getText()
+            terminal_vec_name = ctx.NAME(2).getText()
+
+            initial_vec = self.get_variable(initial_vec_name, ctx)
+            terminal_vec = self.get_variable(terminal_vec_name, ctx)
+
+
+            if  type(initial_vec) == Vector and type(terminal_vec) == Vector:
+                radius = self.visit(ctx.expr())
+                cylinder = Cylinder(cylinder_name, initial_vec, terminal_vec, radius)
+                self.set_variable(cylinder_name, cylinder)
+            else:
+                raise BadArgumentException(
+                    ctx.start.line, "cylinder", cylinder_name, self.types[type(initial_vec)])  
+    
+        else:
+            raise VariableAlreadyDeclaredException(ctx.start.line, cylinder_name)
 
 
     def visitGroup(self, ctx: GraphlyParser.GroupContext):
