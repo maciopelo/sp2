@@ -294,3 +294,128 @@ class Vector(Drawable):
     
     def scale(self, point, factor):
         pass
+
+
+
+class Axis(Drawable):
+
+    def __init__(self, name, inital_vec, terminal_vec):
+        self.name = name
+        self.inital_vec = inital_vec
+        self.terminal_vec = terminal_vec
+        self.color = vec(1, 1, 1)
+
+    def get_axis_length(self):
+        return sqrt(
+            (self.inital_vec.x - self.terminal_vec.x)**2 + 
+            (self.inital_vec.y - self.terminal_vec.y)**2 + 
+            (self.inital_vec.z - self.terminal_vec.z)**2
+        )
+
+    def __str__(self):
+        return f'<axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), length: {round(self.get_axis_length(),2)}, #{self.color}>'
+
+    def draw(self, screen):
+
+        curve(color=self.color, 
+            pos=[vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
+                vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z)], 
+            canvas=screen)
+    
+    def move(self, x, y, z):
+        self.inital_vec.x += x
+        self.inital_vec.y += y
+        self.inital_vec.z += z
+
+        self.terminal_vec.x += x
+        self.terminal_vec.y += y
+        self.terminal_vec.z += z
+    
+    def place(self, point):
+        pass
+    
+    def rotate(self, point, angle):
+        pass
+    
+    def scale(self, point, factor):
+        pass
+
+
+class Cylinder(Drawable):
+
+    def __init__(self, name, inital_vec, terminal_vec, radius):
+        self.name = name
+        self.inital_vec = inital_vec
+        self.terminal_vec = terminal_vec
+        self.radius = radius
+        self.color = vec(1, 1, 1)
+
+    def __str__(self):
+        return f'<axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), #{self.color}>'
+
+    def draw(self, screen):
+
+        cylinder(color=self.color,
+                radius=self.radius,
+                pos=vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
+                axis=vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z), 
+                canvas=screen)
+    
+    def move(self, x, y, z):
+        self.inital_vec.x += x
+        self.inital_vec.y += y
+        self.inital_vec.z += z
+
+        self.terminal_vec.x += x
+        self.terminal_vec.y += y
+        self.terminal_vec.z += z
+    
+    def place(self, point):
+        pass
+    
+    def rotate(self, point, angle):
+        pass
+    
+    def scale(self, point, factor):
+        pass
+
+
+class Ring(Drawable):
+
+    def __init__(self, name, inital_vec, terminal_vec, radius, thickness):
+        self.name = name
+        self.inital_vec = inital_vec
+        self.terminal_vec = terminal_vec
+        self.radius = radius
+        self.thickness = thickness
+        self.color = vec(1, 1, 1)
+
+    def __str__(self):
+        return f'<ring, {self.name}, ({self.inital_vec}, {self.terminal_vec}), r={self.radius}, thickness={self.thickness}, #{self.color}>'
+
+    def draw(self, screen):
+
+        ring(color=self.color,
+            radius=self.radius,
+            thickness=self.thickness,
+            pos=vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
+            axis=vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z), 
+            canvas=screen)
+    
+    def move(self, x, y, z):
+        self.inital_vec.x += x
+        self.inital_vec.y += y
+        self.inital_vec.z += z
+
+        self.terminal_vec.x += x
+        self.terminal_vec.y += y
+        self.terminal_vec.z += z
+    
+    def place(self, point):
+        pass
+    
+    def rotate(self, point, angle):
+        pass
+    
+    def scale(self, point, factor):
+        pass
