@@ -42,6 +42,7 @@ def check_canvas(argv):  # first run of program
 
 
     print("All is ok!")
+    
 
 
 def execute_graphly_script(argv):  # second run of program

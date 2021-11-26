@@ -140,7 +140,7 @@ sphere
 
 box
 	:
-	WS* 'sphere' WS+ NAME WS* ':'
+	WS* 'box' WS+ NAME WS* ':'
 	WS* NAME WS* ',' WS* NAME
 	;
 	
