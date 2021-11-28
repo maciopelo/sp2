@@ -20,7 +20,7 @@ from exceptions.UnknownGroupTypeException import UnknownGroupTypeException
 from exceptions.BadTypeInExpressionException import BadTypeInExpressionException
 from exceptions.IllegalCharacterException import IllegalCharacterException
 from exceptions.FailedSaveException import FailedSaveException
-from exceptions.InstructionOutOfDrawModeScopeException import InstructionOutOfDrawModeScopeException
+
 
 from drawables import *
 
@@ -170,7 +170,6 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
     def visitVector(self, ctx:GraphlyParser.VectorContext):
-        # print('im in vector')
         name = ctx.NAME()
         
         if not self.variable_exists(name):
@@ -295,7 +294,6 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitBox(self, ctx:GraphlyParser.BoxContext):
-        print('whats in the box')
         name = ctx.NAME(0).getText()
         position_vector_name = ctx.NAME(1).getText()
         size_vector_name = ctx.NAME(2).getText()
@@ -317,8 +315,6 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
     def visitCurve(self, ctx:GraphlyParser.CurveContext):
         name = ctx.NAME(0).getText()
-
-        print('im in curve')
 
         if not self.variable_exists(name):
             group_name = ctx.NAME(1).getText()
@@ -409,7 +405,6 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitGroup(self, ctx: GraphlyParser.GroupContext):
-        # print('im in group!!\n')
         name_tokens = ctx.getTokens(GraphlyParser.NAME)
 
         name = name_tokens[0].getText()
@@ -721,6 +716,19 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             variable.move(x, y)
         else:
             raise BadArgumentException(ctx.start.line, "move", name, self.types[type(variable)])
+    
+    
+    def visitMove3d(self, ctx:GraphlyParser.Move3dContext):
+        name = ctx.arg.getText()
+        x = self.visit(ctx.dx)
+        y = self.visit(ctx.dy)
+        z = self.visit(ctx.dz)
+        variable = self.try_to_get_member(ctx, ctx.arg, name)
+
+        if issubclass(type(variable), Drawable):
+            variable.move(x, y, z)
+        else:
+            raise BadArgumentException(ctx.start.line, "move", name, self.types[type(variable)])
 
 
     def visitPlace(self, ctx: GraphlyParser.PlaceContext):
@@ -730,7 +738,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
         shape = self.try_to_get_member(ctx, ctx.arg1, shape_name)
         place_point = self.try_to_get_member(ctx, ctx.arg2, place_point_name)
 
-        if type(place_point) == Point:
+        if type(place_point) == Point or type(place_point) == Vector:
             if issubclass(type(shape), Drawable):
                 shape.place(place_point)
             else:
@@ -746,7 +754,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
         shape = self.try_to_get_member(ctx, ctx.arg1, shape_name)
         pivot_point = self.try_to_get_member(ctx, ctx.arg2, pivot_point_name)
 
-        if type(pivot_point) != Point:
+        if type(pivot_point) not in (Point, Axis):
             raise BadArgumentException(ctx.start.line, "rotate", "pivot_point", self.types[type(pivot_point)])
 
         angle = self.visit(ctx.angle)
@@ -781,3 +789,20 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             shape.scale(pivot_point, factor)
         else:
             raise BadArgumentException(ctx.start.line, "scale", shape_name, self.types[type(shape)])
+
+
+    def visitScale3d(self, ctx: GraphlyParser.ScaleContext):
+        shape_name = ctx.arg1.getText()
+
+        shape = self.try_to_get_member(ctx, ctx.arg1, shape_name)
+
+        factor = self.visit(ctx.k)
+
+        
+        if type(factor) not in (int, float):
+            raise BadArgumentException(ctx.start.line, "scale3d", "factor", self.types[type(factor)])
+
+        if issubclass(type(shape), Drawable):
+            shape.scale3d(factor)
+        else:
+            raise BadArgumentException(ctx.start.line, "scale3d", shape_name, self.types[type(shape)])

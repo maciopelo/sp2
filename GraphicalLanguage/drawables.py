@@ -21,6 +21,13 @@ class Drawable:
     def scale(self, point, factor):
         pass
 
+    def scale3d(self,factor):
+        pass
+
+
+    def normalize_rgb(self, color):
+        return (color[0]/255,color[1]/255,color[2]/255)
+
     def rotate_single_point(self, point, pivot, angle):
         s = sin(radians(angle))
         c = cos(radians(angle))
@@ -263,23 +270,26 @@ class Polygon(Drawable):
 
 class Vector(Drawable):
 
-    VECTOR_RADIUS = 0.5
-
     def __init__(self, name, x, y, z):
         self.x = x
         self.y = y
         self.z = z
         self.name = name
         self.color = vec(1, 1, 1)
+        self.obj = None
+        self.radius = 0.5
 
     def get_coordination_tuple(self):
         return self.x, self.y, self.z
+
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
 
     def __str__(self):
         return f'vector, {self.name}, ({self.x}, {self.y}, {self.z}), #{self.color}'
 
     def draw(self, screen):
-        sphere(radius=self.VECTOR_RADIUS, pos=vec(self.x, self.y, self.z), canvas=screen)
+        self.obj = sphere(radius=self.radius, pos=vec(self.x, self.y, self.z), canvas=screen, color=self.color)
     
     def move(self, x, y, z):
         self.x += x
@@ -287,100 +297,159 @@ class Vector(Drawable):
         self.z += z
     
     def place(self, point):
-        pass
+        self.x = point.x
+        self.y = point.y
+        self.z = point.z
     
-    def rotate(self, point, angle):
-        pass
+    def rotate(self, axis, angle):
+        init = axis.get_axis_initial_vec()
+        term = axis.get_axis_terminal_vec()
+        axis = (term[0]-init[0],term[1]-init[1],term[2]-init[2])
+        self.obj.rotate(angle=radians(angle), origin=vec(*init), axis=vector(*axis))
     
-    def scale(self, point, factor):
-        pass
+    def scale3d(self, factor):
+        self.radius *= factor
+
 
 class Box(Drawable):
-    def __init__(self,name, position,size):
+    def __init__(self, name, position, size):
         self.position = position
         self.size = size
         self.name = name
         self.color = vec(1, 1, 1)
+        self.obj = None
 
     def get_coordination_tuple(self):
         return self.position.x, self.position.y, self.position.z
     
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
+    
     def get_size_tuple(self):
         return self.size.x, self.size.y, self.size.z
+
     def __str__(self):
         return f'box, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}'
 
-    def draw(self,screen):
-        box(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen)
+    def draw(self, screen):
+        self.obj = box(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen, color=self.color)
+
+
     def move(self, x, y, z):
-        pass
+        self.position.x += x
+        self.position.y += y
+        self.position.z += z
     
     def place(self, point):
-        pass
+        self.x = point.x
+        self.y = point.y
+        self.z = point.z
     
-    def rotate(self, point, angle):
-        pass
+    def rotate(self, axis, angle):
+        init = axis.get_axis_initial_vec()
+        term = axis.get_axis_terminal_vec()
+        axis = (term[0]-init[0],term[1]-init[1],term[2]-init[2])
+        self.obj.rotate(angle=radians(angle), origin=vec(*init), axis=vector(*axis))
     
-    def scale(self, point, factor):
-        pass
+    def scale3d(self, factor):
+        self.size.x *= factor
+        self.size.y *= factor
+        self.size.z *= factor
+
+
 
 class Sphere(Drawable):
-    def __init__(self,name, position,radius):
+    def __init__(self,name, position, radius):
         self.position = position
         self.radius = radius
         self.name = name
         self.color = vec(1, 1, 1)
+        self.obj = None
 
     def get_coordination_tuple(self):
         return self.position.x, self.position.y, self.position.z
     
     def get_radius(self):
         return self.radius
+    
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
+
     def __str__(self):
         return f'sphere, {self.name}, ({self.position.x}, {self.position.y}, {self.position.z}),{self.radius}, #{self.color}'
 
     def draw(self, screen):
-        sphere(radius=self.radius, pos=vec(*self.get_coordination_tuple()), canvas=screen)
+        self.obj = sphere(radius=self.radius, pos=vec(*self.get_coordination_tuple()), canvas=screen, color=self.color)
+        
+
     def move(self, x, y, z):
-        pass
+        self.position.x += x
+        self.position.y += y
+        self.position.z += z
     
     def place(self, point):
-        pass
+        self.x = point.x
+        self.y = point.y
+        self.z = point.z
     
-    def rotate(self, point, angle):
-        pass
+    def rotate(self, axis, angle):
+        init = axis.get_axis_initial_vec()
+        term = axis.get_axis_terminal_vec()
+        axis = (term[0]-init[0],term[1]-init[1],term[2]-init[2])
+        self.obj.rotate(angle=radians(angle), origin=vec(*init), axis=vector(*axis))
     
-    def scale(self, point, factor):
-        pass
+    def scale3d(self, factor):
+        self.radius *= factor
+
+
 
 class Pyramid(Drawable):
-    def __init__(self,name, position,size):
+    def __init__(self,name, position, size):
         self.position = position
         self.size = size
         self.name = name
         self.color = vec(1, 1, 1)
+        self.obj = None
 
     def get_coordination_tuple(self):
         return self.position.x, self.position.y, self.position.z
+
+    
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
     
     def get_size_tuple(self):
         return self.size.x, self.size.y, self.size.z
+
     def __str__(self):
         return f'pyramid, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}'
 
     def draw(self,screen):
-        pyramid(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen)
+        self.obj = pyramid(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen, color=self.color)
+
+
     def move(self, x, y, z):
-        pass
+        self.position.x += x
+        self.position.y += y
+        self.position.z += z
     
     def place(self, point):
-        pass
+        self.x = point.x
+        self.y = point.y
+        self.z = point.z
     
-    def rotate(self, point, angle):
-        pass
+    def rotate(self, axis, angle):
+        init = axis.get_axis_initial_vec()
+        term = axis.get_axis_terminal_vec()
+        axis = (term[0]-init[0],term[1]-init[1],term[2]-init[2])
+        self.obj.rotate(angle=radians(angle), origin=vec(*init), axis=vector(*axis))
     
-    def scale(self, point, factor):
-        pass
+    def scale3d(self, factor):
+        self.size.x *= factor
+        self.size.y *= factor
+        self.size.z *= factor
+
+
 
 
 class Curve(Drawable):
@@ -389,8 +458,9 @@ class Curve(Drawable):
     def __init__(self, name, vectors):
         self.name = name
         self.vectors = vectors
-        self.color = (1, 1, 1)
+        self.color = vec(1, 1, 1)
         self.width = self.CURVE_WIDTH
+        self.obj = None
 
     def __str__(self):
         ret = f'curve, {self.name}, ['
@@ -400,19 +470,33 @@ class Curve(Drawable):
 
     def draw(self, screen):
         coordination_tuples_list = [vec(*vector.get_coordination_tuple()) for vector in self.vectors]
-        curve(coordination_tuples_list)
+        self.obj = curve(coordination_tuples_list, color=self.color)
+    
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
 
-    def move(self, x, y):
-        pass
+    def move(self, x, y, z):
+        for v in self.vectors:
+            v.x += x
+            v.y += y
+            v.z += z
     
     def place(self, point):
-        pass
+        for v in self.vectors:
+            v.x += point.x
+            v.y += point.y
+            v.z += point.z
 
-    def rotate(self, point, angle):
-        pass
+    def rotate(self, axis, angle):
+        init = axis.get_axis_initial_vec()
+        term = axis.get_axis_terminal_vec()
+        axis = (term[0]-init[0],term[1]-init[1],term[2]-init[2])
+        self.obj.rotate(angle=radians(angle), origin=vec(*init), axis=vector(*axis))
     
-    def scale(self, point, factor):
-        pass
+    def scale3d(self, factor):
+        self.width *= factor
+
+
 
 
 class Axis(Drawable):
@@ -422,6 +506,7 @@ class Axis(Drawable):
         self.inital_vec = inital_vec
         self.terminal_vec = terminal_vec
         self.color = vec(1, 1, 1)
+        self.obj = None
 
     def get_axis_length(self):
         return sqrt(
@@ -430,15 +515,23 @@ class Axis(Drawable):
             (self.inital_vec.z - self.terminal_vec.z)**2
         )
 
+    def get_axis_initial_vec(self):
+        return self.inital_vec.x,self.inital_vec.y,self.inital_vec.z
+    
+    def get_axis_terminal_vec(self):
+        return self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z
+    
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
+
     def __str__(self):
         return f'axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), length: {round(self.get_axis_length(),2)}, #{self.color}'
 
     def draw(self, screen):
 
-        curve(color=self.color, 
-            pos=[vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
+        self.obj = curve(pos=[vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
                 vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z)], 
-            canvas=screen)
+            canvas=screen, color=self.color)
     
     def move(self, x, y, z):
         self.inital_vec.x += x
@@ -450,13 +543,26 @@ class Axis(Drawable):
         self.terminal_vec.z += z
     
     def place(self, point):
-        pass
+        self.inital_vec.x = point.x
+        self.inital_vec.y = point.y
+        self.inital_vec.z = point.z
+
+        self.terminal_vec.x = point.x
+        self.terminal_vec.y = point.y
+        self.terminal_vec.z = point.z
     
-    def rotate(self, point, angle):
-        pass
+    def rotate(self, axis, angle):
+        init = axis.get_axis_initial_vec()
+        term = axis.get_axis_terminal_vec()
+        axis = (term[0]-init[0],term[1]-init[1],term[2]-init[2])
+        self.obj.rotate(angle=radians(angle), origin=vec(*init), axis=vector(*axis))
     
-    def scale(self, point, factor):
-        pass
+    def scale3d(self, factor):
+        self.terminal_vec.x *= factor
+        self.terminal_vec.y *= factor
+        self.terminal_vec.z *= factor
+
+
 
 
 class Cylinder(Drawable):
@@ -467,17 +573,21 @@ class Cylinder(Drawable):
         self.terminal_vec = terminal_vec
         self.radius = radius
         self.color = vec(1, 1, 1)
+        self.obj = None
 
     def __str__(self):
-        return f'axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), #{self.color}'
+        return f'<axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), #{self.color}>'
+    
+
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
 
     def draw(self, screen):
 
-        cylinder(color=self.color,
-                radius=self.radius,
+        self.obj = cylinder(radius=self.radius,
                 pos=vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
                 axis=vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z), 
-                canvas=screen)
+                canvas=screen, color=self.color)
     
     def move(self, x, y, z):
         self.inital_vec.x += x
@@ -489,13 +599,22 @@ class Cylinder(Drawable):
         self.terminal_vec.z += z
     
     def place(self, point):
-        pass
+        self.inital_vec.x = point.x
+        self.inital_vec.y = point.y
+        self.inital_vec.z = point.z
+
+        self.terminal_vec.x = point.x
+        self.terminal_vec.y = point.y
+        self.terminal_vec.z = point.z
     
-    def rotate(self, point, angle):
-        pass
+    def rotate(self, axis, angle):
+        init = axis.get_axis_initial_vec()
+        term = axis.get_axis_terminal_vec()
+        axis = (term[0]-init[0],term[1]-init[1],term[2]-init[2])
+        self.obj.rotate(angle=radians(angle), origin=vec(*init), axis=vector(*axis))
     
-    def scale(self, point, factor):
-        pass
+    def scale3d(self, factor):
+        self.radius *= factor
 
 
 class Ring(Drawable):
@@ -507,18 +626,21 @@ class Ring(Drawable):
         self.radius = radius
         self.thickness = thickness
         self.color = vec(1, 1, 1)
+        self.obj = None
 
     def __str__(self):
         return f'ring, {self.name}, ({self.inital_vec}, {self.terminal_vec}), r={self.radius}, thickness={self.thickness}, #{self.color}'
 
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
+
     def draw(self, screen):
 
-        ring(color=self.color,
-            radius=self.radius,
+        self.obj = ring(radius=self.radius,
             thickness=self.thickness,
             pos=vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
             axis=vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z), 
-            canvas=screen)
+            canvas=screen, color=self.color)
     
     def move(self, x, y, z):
         self.inital_vec.x += x
@@ -530,11 +652,21 @@ class Ring(Drawable):
         self.terminal_vec.z += z
     
     def place(self, point):
-        pass
+        self.inital_vec.x = point.x
+        self.inital_vec.y = point.y
+        self.inital_vec.z = point.z
+
+        self.terminal_vec.x = point.x
+        self.terminal_vec.y = point.y
+        self.terminal_vec.z = point.z
     
-    def rotate(self, point, angle):
-        pass
+    def rotate(self, axis, angle):
+        init = axis.get_axis_initial_vec()
+        term = axis.get_axis_terminal_vec()
+        axis = (term[0]-init[0],term[1]-init[1],term[2]-init[2])
+        self.obj.rotate(angle=radians(angle), origin=vec(*init), axis=vector(*axis))
     
-    def scale(self, point, factor):
-        pass
+    def scale3d(self, factor):
+        self.radius *= factor
+        self.thickness *= factor
     
