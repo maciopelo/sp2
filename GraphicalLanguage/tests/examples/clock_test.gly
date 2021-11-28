@@ -22,7 +22,7 @@ draw Center
 
 loop I start 0 until (360 / Angle) step 1 then
     point P3: X/2, X/6
-    check (I % 3) = 0 then
+    if (I % 3) = 0 then
         point P4: X/2, X/4
         segment S: P3, P4
         rotate S: I * Angle, Center

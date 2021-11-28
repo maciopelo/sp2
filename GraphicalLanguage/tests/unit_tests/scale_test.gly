@@ -16,8 +16,8 @@ point F3D: X/2 + Offset, 0
 point F4U: X/2 - Offset, X
 point F4D: X/2 + Offset, X
 
-group<points> VerGroup: F1L, F1R, F2R, F2L
-group<points> HorGroup: F3U, F4U, F4D, F3D
+list<points> VerGroup: F1L, F1R, F2R, F2L
+list<points> HorGroup: F3U, F4U, F4D, F3D
 
 polygon Vertical: VerGroup
 polygon Horizontal: HorGroup
@@ -70,7 +70,7 @@ point PP1: 330, 400
 point PP2: 350, 340
 point PP3: 550, 330
 point PP4: 400, 400
-group<points> Points: PP1, PP2, PP3, PP4
+list<points> Points: PP1, PP2, PP3, PP4
 polygon S4: Points
 fill S4: #blue
 

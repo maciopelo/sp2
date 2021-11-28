@@ -6,7 +6,7 @@ loop I start 1 until 6 step 1 then
     loop J start 1 until 6 step 1 then
         num A: 2
         point P3: I*100, J*100
-        check (I+J)%2 = 0 then
+        if (I+J)%2 = 0 then
             num A:3
             fill P3: #red
         else then

@@ -1,4 +1,4 @@
--- usage of incorrect points group
+-- usage of incorrect points list
 
 num X: 500      --comment
 canvas: X, X, #red --comment
@@ -8,7 +8,7 @@ point P2: 130, 480
 point P3: 40, 390
 circle C: P1, 90
 
-group<shapes> Points: P1, P2, C
+list<shapes> Points: P1, P2, C
 polygon Triangle: Points
 
 draw Triangle

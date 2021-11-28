@@ -1,7 +1,7 @@
 -- more sophisticated example
 
 loop I start 1 until 10 step 2 then
-    check 2 + 3 % P   > Imp then
+    if 2 + 3 % P   > Imp then
         num X1: 2
     else then
         draw S
