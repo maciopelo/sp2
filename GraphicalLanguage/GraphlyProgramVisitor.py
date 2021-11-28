@@ -61,6 +61,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             Polygon: "polygon",
             Group: "group",
             "shape": "shape",
+#            "shape3d":"shape3d",
             "drawable": "drawable",
             Drawable: "drawable"
         }
@@ -435,6 +436,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
                 if correct_type not in (self.types["shape"], self.types["drawable"]) and type(member) != correct_type:
                     raise BadTypeInGroupException(ctx.start.line, name, self.types[correct_type], self.types[type(member)])
 
+
                 group_members.append(member)
 
 
@@ -530,7 +532,15 @@ class GraphlyProgramVisitor(GraphlyVisitor):
     def visitShapeLog(self, ctx:GraphlyParser.ShapeLogContext):
         name = ctx.arg.getText()
         variable = self.try_to_get_member(ctx, ctx.arg, name)
-        print(variable)
+        if self.mode == "2D":
+            print(variable)
+        elif self.mode == "3D":
+            print(variable)
+            variable = str(variable)
+            self.screen.append_to_caption(variable + '\n')
+
+
+        
 
 
     def visitExprLog(self, ctx:GraphlyParser.ExprLogContext):
@@ -543,7 +553,10 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
     def visitSimpleSave(self, ctx:GraphlyParser.SimpleSaveContext):
         try:
-            pygame.image.save(self.screen, self.filename + '.png')
+            if self.mode == "2D":
+                pygame.image.save(self.screen, self.filename + '.png')
+            else:
+                self.screen.capture(str(self.filename))
         except:
             raise FailedSaveException(ctx.start.line, self.filename + '.png')
 
@@ -555,15 +568,19 @@ class GraphlyProgramVisitor(GraphlyVisitor):
         if any(c in forbidden for c in name):
             raise IllegalCharacterException(ctx.start.line, name)
         
-        if splitext(name)[1] not in ('.png', '.jpeg', '.bmp', '.tga'):
-            name += '.png'
+        if self.mode == '2D':
+            if splitext(name)[1] not in ('.png', '.jpeg', '.bmp', '.tga'):
+                name += '.png'
 
         direcotry = dirname(self.filename)
         if direcotry != '':
             name = direcotry + '/' + name
 
         try:
-            pygame.image.save(self.screen, name)
+            if self.mode == "2D":
+                pygame.image.save(self.screen, name)
+            else:
+                self.screen.capture(name)
         except:
             raise FailedSaveException(ctx.start.line, name)
 

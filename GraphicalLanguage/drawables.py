@@ -47,10 +47,10 @@ class Group(Drawable):
         self.members = members
     
     def __str__(self):
-        ret = f'<group<{self.type}>, {self.name}, [\n'
+        ret = f'group<{self.type}>, {self.name}, [\n'
         for m in self.members:
             ret += '  ' + str(m) + ','
-        return ret[:-2] + f'\n]>'
+        return ret[:-2] + f'\n]'
 
     def draw(self, screen):
         for m in self.members:
@@ -276,7 +276,7 @@ class Vector(Drawable):
         return self.x, self.y, self.z
 
     def __str__(self):
-        return f'<vector, {self.name}, ({self.x}, {self.y}, {self.z}), #{self.color}>'
+        return f'vector, {self.name}, ({self.x}, {self.y}, {self.z}), #{self.color}'
 
     def draw(self, screen):
         sphere(radius=self.VECTOR_RADIUS, pos=vec(self.x, self.y, self.z), canvas=screen)
@@ -308,7 +308,7 @@ class Box(Drawable):
     def get_size_tuple(self):
         return self.size.x, self.size.y, self.size.z
     def __str__(self):
-        return f'<box, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}>'
+        return f'box, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}'
 
     def draw(self,screen):
         box(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen)
@@ -337,7 +337,7 @@ class Sphere(Drawable):
     def get_radius(self):
         return self.radius
     def __str__(self):
-        return f'<sphere, {self.name}, ({self.position.x}, {self.position.y}, {self.position.z}),{self.radius}, #{self.color}>'
+        return f'sphere, {self.name}, ({self.position.x}, {self.position.y}, {self.position.z}),{self.radius}, #{self.color}'
 
     def draw(self, screen):
         sphere(radius=self.radius, pos=vec(*self.get_coordination_tuple()), canvas=screen)
@@ -366,7 +366,7 @@ class Pyramid(Drawable):
     def get_size_tuple(self):
         return self.size.x, self.size.y, self.size.z
     def __str__(self):
-        return f'<pyramid, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}>'
+        return f'pyramid, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}'
 
     def draw(self,screen):
         pyramid(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen)
@@ -393,10 +393,10 @@ class Curve(Drawable):
         self.width = self.CURVE_WIDTH
 
     def __str__(self):
-        ret = f'<curve, {self.name}, ['
+        ret = f'curve, {self.name}, ['
         for p in self.vectors:
             ret += str(p) + ', '
-        return ret[:-2] + f'], #{self.color}>'
+        return ret[:-2] + f'], #{self.color}'
 
     def draw(self, screen):
         coordination_tuples_list = [vec(*vector.get_coordination_tuple()) for vector in self.vectors]
@@ -431,7 +431,7 @@ class Axis(Drawable):
         )
 
     def __str__(self):
-        return f'<axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), length: {round(self.get_axis_length(),2)}, #{self.color}>'
+        return f'axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), length: {round(self.get_axis_length(),2)}, #{self.color}'
 
     def draw(self, screen):
 
@@ -469,7 +469,7 @@ class Cylinder(Drawable):
         self.color = vec(1, 1, 1)
 
     def __str__(self):
-        return f'<axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), #{self.color}>'
+        return f'axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), #{self.color}'
 
     def draw(self, screen):
 
@@ -509,7 +509,7 @@ class Ring(Drawable):
         self.color = vec(1, 1, 1)
 
     def __str__(self):
-        return f'<ring, {self.name}, ({self.inital_vec}, {self.terminal_vec}), r={self.radius}, thickness={self.thickness}, #{self.color}>'
+        return f'ring, {self.name}, ({self.inital_vec}, {self.terminal_vec}), r={self.radius}, thickness={self.thickness}, #{self.color}'
 
     def draw(self, screen):
 
