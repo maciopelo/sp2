@@ -1,0 +1,56 @@
+mode: 3D
+
+canvas: 600, 600, #black
+
+
+-- VECTOR
+vector Vector1: 0, 0, 0
+vector Vector2: 0, 0, 5
+
+
+-- BOX
+vector BoxInit: 5, 5, 0
+vector BoxSize: 1, 2, 3
+box Box: BoxInit, BoxSize
+
+
+-- SPHERE
+vector SphereInit: -5, 5, 0
+sphere Sphere: SphereInit, 2
+
+
+-- CURVE
+vector V0: 0, 0, 0
+vector V1: 0, 0, -5
+vector V2: 0, 10 ,-5
+list<vectors> Vectors: V0, V1, V2
+curve Curve: Vectors
+
+
+-- AXIS
+vector AxisInit: 0, 0, 3
+vector AxisTerm: 4, 4, 3
+axis Axis: AxisInit, AxisTerm
+
+
+-- CYLINDER
+vector CylinderInit: 6, 6, 6
+vector CylinderTerm: 9, 9, 9
+cylinder Cylinder: CylinderInit, CylinderTerm, 1
+
+
+-- RING
+vector RingInit: 3, -3, 3
+vector RingTerm: 5, -5, 5
+ring Ring: RingInit, RingTerm, 1, 0.3
+
+
+
+draw Vector1
+draw Vector2
+--draw Box
+--draw Sphere
+--draw Curve
+--draw Axis
+--draw Cylinder
+--draw Ring

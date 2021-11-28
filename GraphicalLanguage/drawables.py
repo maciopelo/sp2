@@ -21,6 +21,9 @@ class Drawable:
     def scale(self, point, factor):
         pass
 
+    def normalize_rgb(self, color):
+        return (color[0]/255,color[1]/255,color[2]/255)
+
     def rotate_single_point(self, point, pivot, angle):
         s = sin(radians(angle))
         c = cos(radians(angle))
@@ -275,11 +278,15 @@ class Vector(Drawable):
     def get_coordination_tuple(self):
         return self.x, self.y, self.z
 
+
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
+
     def __str__(self):
         return f'<vector, {self.name}, ({self.x}, {self.y}, {self.z}), #{self.color}>'
 
     def draw(self, screen):
-        sphere(radius=self.VECTOR_RADIUS, pos=vec(self.x, self.y, self.z), canvas=screen)
+        sphere(radius=self.VECTOR_RADIUS, pos=vec(self.x, self.y, self.z), canvas=screen, color=self.color)
     
     def move(self, x, y, z):
         self.x += x
@@ -295,8 +302,9 @@ class Vector(Drawable):
     def scale(self, point, factor):
         pass
 
+
 class Box(Drawable):
-    def __init__(self,name, position,size):
+    def __init__(self, name, position, size):
         self.position = position
         self.size = size
         self.name = name
@@ -305,13 +313,17 @@ class Box(Drawable):
     def get_coordination_tuple(self):
         return self.position.x, self.position.y, self.position.z
     
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
+    
     def get_size_tuple(self):
         return self.size.x, self.size.y, self.size.z
+
     def __str__(self):
         return f'<box, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}>'
 
     def draw(self,screen):
-        box(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen)
+        box(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen, color=self.color)
     def move(self, x, y, z):
         pass
     
@@ -324,8 +336,10 @@ class Box(Drawable):
     def scale(self, point, factor):
         pass
 
+
+
 class Sphere(Drawable):
-    def __init__(self,name, position,radius):
+    def __init__(self,name, position, radius):
         self.position = position
         self.radius = radius
         self.name = name
@@ -336,11 +350,16 @@ class Sphere(Drawable):
     
     def get_radius(self):
         return self.radius
+    
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
+
     def __str__(self):
         return f'<sphere, {self.name}, ({self.position.x}, {self.position.y}, {self.position.z}),{self.radius}, #{self.color}>'
 
     def draw(self, screen):
-        sphere(radius=self.radius, pos=vec(*self.get_coordination_tuple()), canvas=screen)
+        sphere(radius=self.radius, pos=vec(*self.get_coordination_tuple()), canvas=screen, color=self.color)
+
     def move(self, x, y, z):
         pass
     
@@ -352,6 +371,8 @@ class Sphere(Drawable):
     
     def scale(self, point, factor):
         pass
+
+
 
 class Pyramid(Drawable):
     def __init__(self,name, position,size):
@@ -362,6 +383,10 @@ class Pyramid(Drawable):
 
     def get_coordination_tuple(self):
         return self.position.x, self.position.y, self.position.z
+
+    
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
     
     def get_size_tuple(self):
         return self.size.x, self.size.y, self.size.z
@@ -369,7 +394,7 @@ class Pyramid(Drawable):
         return f'<pyramid, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}>'
 
     def draw(self,screen):
-        pyramid(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen)
+        pyramid(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen, color=self.color)
     def move(self, x, y, z):
         pass
     
@@ -381,6 +406,8 @@ class Pyramid(Drawable):
     
     def scale(self, point, factor):
         pass
+
+
 
 
 class Curve(Drawable):
@@ -400,7 +427,10 @@ class Curve(Drawable):
 
     def draw(self, screen):
         coordination_tuples_list = [vec(*vector.get_coordination_tuple()) for vector in self.vectors]
-        curve(coordination_tuples_list)
+        curve(coordination_tuples_list, color=self.color)
+    
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
 
     def move(self, x, y):
         pass
@@ -413,6 +443,8 @@ class Curve(Drawable):
     
     def scale(self, point, factor):
         pass
+
+
 
 
 class Axis(Drawable):
@@ -429,16 +461,18 @@ class Axis(Drawable):
             (self.inital_vec.y - self.terminal_vec.y)**2 + 
             (self.inital_vec.z - self.terminal_vec.z)**2
         )
+    
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
 
     def __str__(self):
         return f'<axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), length: {round(self.get_axis_length(),2)}, #{self.color}>'
 
     def draw(self, screen):
 
-        curve(color=self.color, 
-            pos=[vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
+        curve(pos=[vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
                 vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z)], 
-            canvas=screen)
+            canvas=screen, color=self.color)
     
     def move(self, x, y, z):
         self.inital_vec.x += x
@@ -459,6 +493,8 @@ class Axis(Drawable):
         pass
 
 
+
+
 class Cylinder(Drawable):
 
     def __init__(self, name, inital_vec, terminal_vec, radius):
@@ -470,14 +506,17 @@ class Cylinder(Drawable):
 
     def __str__(self):
         return f'<axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), #{self.color}>'
+    
+
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
 
     def draw(self, screen):
 
-        cylinder(color=self.color,
-                radius=self.radius,
+        cylinder(radius=self.radius,
                 pos=vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
                 axis=vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z), 
-                canvas=screen)
+                canvas=screen, color=self.color)
     
     def move(self, x, y, z):
         self.inital_vec.x += x
@@ -511,14 +550,16 @@ class Ring(Drawable):
     def __str__(self):
         return f'<ring, {self.name}, ({self.inital_vec}, {self.terminal_vec}), r={self.radius}, thickness={self.thickness}, #{self.color}>'
 
+    def fill(self, color):
+        self.color = vec(*self.normalize_rgb(color))
+
     def draw(self, screen):
 
-        ring(color=self.color,
-            radius=self.radius,
+        ring(radius=self.radius,
             thickness=self.thickness,
             pos=vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
             axis=vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z), 
-            canvas=screen)
+            canvas=screen, color=self.color)
     
     def move(self, x, y, z):
         self.inital_vec.x += x
