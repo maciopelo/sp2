@@ -11,6 +11,6 @@ point D: 80, 310
 
 segment S: A, D
 
-group<shapes> Drawables: A, B, C, D, S
+list<shapes> Drawables: A, B, C, D, S
 
 draw Drawables

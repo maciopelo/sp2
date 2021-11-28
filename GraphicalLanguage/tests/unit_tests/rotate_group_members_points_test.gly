@@ -10,7 +10,7 @@ point P3: 450, 100
 point P4: 400, 450
 point P5: 100, 500
 
-group<points> Points: P1, P2, P3, P4, P5
+list<points> Points: P1, P2, P3, P4, P5
 
 fill Points: #red
 draw Points
@@ -22,7 +22,7 @@ loop I start 0 until 5 step 1 then
     draw S
     rotate S: 45, Points[I]
 
-    check I % 2 = 0 then
+    if I % 2 = 0 then
         fill S: #orange
     else then
         fill S: #blue

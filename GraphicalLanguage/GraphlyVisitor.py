@@ -1,4 +1,4 @@
-# Generated from Graphly.g4 by ANTLR 4.7.2
+# Generated from Graphly.g4 by ANTLR 4.9.2
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .GraphlyParser import GraphlyParser
@@ -179,6 +179,11 @@ class GraphlyVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by GraphlyParser#move3d.
+    def visitMove3d(self, ctx:GraphlyParser.Move3dContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by GraphlyParser#place.
     def visitPlace(self, ctx:GraphlyParser.PlaceContext):
         return self.visitChildren(ctx)
@@ -191,6 +196,11 @@ class GraphlyVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphlyParser#scale.
     def visitScale(self, ctx:GraphlyParser.ScaleContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphlyParser#scale3d.
+    def visitScale3d(self, ctx:GraphlyParser.Scale3dContext):
         return self.visitChildren(ctx)
 
 

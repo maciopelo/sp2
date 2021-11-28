@@ -1,6 +1,6 @@
--- draw in check
+-- draw in if
 
-check J + 2  = 1 then
+if J + 2  = 1 then
     draw N
 end
 

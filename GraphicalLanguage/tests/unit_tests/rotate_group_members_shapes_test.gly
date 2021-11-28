@@ -16,14 +16,14 @@ point P8: 300, 300
 circle C: P4, 50
 segment S: P5, P6
 
-group<points> Points: P3, P2, P1
+list<points> Points: P3, P2, P1
 polygon Triangle: Points
 
 fill P7: #green
 fill C: #red
 fill S: #blue
 
-group<shapes> Shapes: Triangle, C, S, P7
+list<shapes> Shapes: Triangle, C, S, P7
 
 draw Shapes
 

@@ -33,7 +33,7 @@ circle Cheek1: C1, 30
 circle Cheek2: C2, 30
 circle Mouth: M, 60
 
-group<points> G: P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
+list<points> G: P1, P2, P3, P4, P5, P6, P7, P8, P9, P10
 polygon Face: G
 
 fill Face: #yellow
@@ -43,5 +43,5 @@ fill Cheek1: #red
 fill Cheek2: #red
 fill Mouth: #pink
 
-group<shapes> Pikachu: Face, Eye1, Pupil1, Eye2, Pupil2, Nose, Cheek1, Cheek2, Mouth
+list<shapes> Pikachu: Face, Eye1, Pupil1, Eye2, Pupil2, Nose, Cheek1, Cheek2, Mouth
 draw Pikachu

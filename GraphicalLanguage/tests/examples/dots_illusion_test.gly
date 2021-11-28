@@ -13,7 +13,7 @@ loop I start Side until X step Side then
     point F2L: X, I - Offset
     point F2R: X, I + Offset
 
-    group<points> VerGroup: F1L, F1R, F2R, F2L
+    list<points> VerGroup: F1L, F1R, F2R, F2L
     polygon Vertical: VerGroup
     draw Vertical
 end
@@ -24,7 +24,7 @@ loop J start Side until X step Side then
     point F4U: J - Offset, X
     point F4D: J + Offset, X
 
-    group<points> HorGroup: F3U, F4U, F4D, F3D
+    list<points> HorGroup: F3U, F4U, F4D, F3D
     polygon Horizontal: HorGroup
     draw Horizontal
 end
