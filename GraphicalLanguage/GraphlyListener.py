@@ -1,4 +1,4 @@
-# Generated from Graphly.g4 by ANTLR 4.7.2
+# Generated from Graphly.g4 by ANTLR 4.9.2
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .GraphlyParser import GraphlyParser
@@ -314,6 +314,15 @@ class GraphlyListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by GraphlyParser#move3d.
+    def enterMove3d(self, ctx:GraphlyParser.Move3dContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#move3d.
+    def exitMove3d(self, ctx:GraphlyParser.Move3dContext):
+        pass
+
+
     # Enter a parse tree produced by GraphlyParser#place.
     def enterPlace(self, ctx:GraphlyParser.PlaceContext):
         pass
@@ -338,6 +347,15 @@ class GraphlyListener(ParseTreeListener):
 
     # Exit a parse tree produced by GraphlyParser#scale.
     def exitScale(self, ctx:GraphlyParser.ScaleContext):
+        pass
+
+
+    # Enter a parse tree produced by GraphlyParser#scale3d.
+    def enterScale3d(self, ctx:GraphlyParser.Scale3dContext):
+        pass
+
+    # Exit a parse tree produced by GraphlyParser#scale3d.
+    def exitScale3d(self, ctx:GraphlyParser.Scale3dContext):
         pass
 
 
@@ -449,3 +467,5 @@ class GraphlyListener(ParseTreeListener):
         pass
 
 
+
+del GraphlyParser

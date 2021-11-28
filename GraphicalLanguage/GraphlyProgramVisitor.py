@@ -20,6 +20,7 @@ from exceptions.UnknownGroupTypeException import UnknownGroupTypeException
 from exceptions.BadTypeInExpressionException import BadTypeInExpressionException
 from exceptions.IllegalCharacterException import IllegalCharacterException
 from exceptions.FailedSaveException import FailedSaveException
+from exceptions.InstructionOutOfDrawModeScopeException import InstructionOutOfDrawModeScopeException
 
 from drawables import *
 

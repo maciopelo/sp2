@@ -248,6 +248,12 @@ move
 	WS* 'move' WS+ arg=transformable WS* ':' 
 	WS* dx=expr WS* ',' WS* dy=expr
 	;
+	
+move3d 
+	: 
+	WS* 'move3d' WS+ arg=transformable WS* ':' 
+	WS* dx=expr WS* ',' WS* dy=expr WS* ',' WS* dz=expr
+	;
 
 place 
 	: 
@@ -265,6 +271,12 @@ scale
 	: 
 	WS* 'scale' WS+ arg1=transformable WS* ':' 
 	WS* k=expr WS* ',' WS* arg2=transformable
+	;
+
+scale3d
+	: 
+	WS* 'scale3d' WS+ arg1=transformable WS* ':' 
+	WS* k=expr
 	;
 
 assign
