@@ -1,0 +1,17 @@
+mode: 3D
+
+canvas: 400, 500, #black
+
+vector V0: 0,0,0
+vector V1: 20,20,20
+vector V2: 10,10,10
+vector V3: -19,-10,3
+
+list<vectors> Vectors: V1, V2, V3
+
+curve Curve1: Vectors
+
+draw Curve1
+
+log V1
+log Vectors

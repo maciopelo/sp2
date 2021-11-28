@@ -1,3 +1,4 @@
+mode: 2D
 canvas: 200, 200, #white
 
 log "Hello World!"
@@ -15,7 +16,7 @@ segment S: P1, P2
 log S
 
 point P3: 10, 30
-group<points> G: P1, P2, P3
+list<points> G: P1, P2, P3
 log G
 
 log G[0]
