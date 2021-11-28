@@ -2,10 +2,30 @@ mode: 3D
 
 canvas: 600, 600, #black
 
+-- X, Y, Z AXIS
+vector X0: 0,0,0
+vector X1: 15,0,0
+vector Y0: 0,0,0
+vector Y1: 0,15,0
+vector Z0: 0,0,0
+vector Z1: 0,0,15
+
+axis X: X0, X1
+axis Y: Y0, Y1
+axis Z: Z0, Z1
+
+fill X: #red
+fill Y: #green
+fill Z: #blue
+
+draw X
+draw Y
+draw Z
+
 
 -- VECTOR
 vector Vector1: 0, 0, 0
-vector Vector2: 0, 0, 5
+vector Vector2: 0, 5, 0
 
 
 -- BOX
@@ -30,9 +50,10 @@ curve Curve: Vectors
 
 
 -- AXIS
-vector AxisInit: 0, 0, 3
-vector AxisTerm: 4, 4, 3
+vector AxisInit: 2, 0, 0
+vector AxisTerm: 2, 4, 0
 axis Axis: AxisInit, AxisTerm
+
 
 
 -- CYLINDER
@@ -47,15 +68,15 @@ vector RingTerm: 5, -5, 5
 ring Ring: RingInit, RingTerm, 1, 0.3
 
 
-move3d Curve: 3, 0, 0
+draw Ring
+
+--rotate Ring: 90, Axis
 
 
-draw Vector1
-draw Curve
 
---draw Box
+
 --draw Sphere
 --draw Curve
---draw Axis
+draw Axis
 --draw Cylinder
 --draw Ring

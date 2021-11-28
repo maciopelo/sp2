@@ -1,2 +1,5 @@
+__pycache__/
+*/__pycache__/
 */__pycache__/
 */exceptions/__pycache__/
+*/tests/__pycache__/

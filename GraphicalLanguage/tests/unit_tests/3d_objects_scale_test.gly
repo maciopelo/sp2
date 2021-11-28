@@ -5,13 +5,16 @@ canvas: 600, 600, #black
 
 -- VECTOR
 vector Vector1: 0, 0, 0
-vector Vector2: 0, 0, 5
+vector Vector2: 0, 5, 0
 
 
 -- BOX
-vector BoxInit1: 5, 5, 0
-vector BoxSize: 1, 2, 3
-box Box: BoxInit1, BoxSize
+vector BoxInit1: 0, 0, 0
+vector BoxInit2: 5, 5, 5
+vector BoxSize1: 1, 1, 1
+vector BoxSize2: 1, 1, 1
+box Box1: BoxInit1, BoxSize1
+box Box2: BoxInit2, BoxSize2
 
 
 -- SPHERE
@@ -42,16 +45,18 @@ cylinder Cylinder: CylinderInit, CylinderTerm, 1
 
 
 -- RING
-vector RingInit: 3, -3, 3
-vector RingTerm: 5, -5, 5
-ring Ring: RingInit, RingTerm, 1, 0.3
+vector RingInit1: 3, -3, 3
+vector RingTerm1: 5, -5, 5
+vector RingInit2: 0,0,0
+vector RingTerm2: 3,3,3
+ring Ring1: RingInit1, RingTerm1, 1, 0.3
+ring Ring2: RingInit2, RingTerm2, 1, 0.3
 
 
-move3d Curve: 3, 0, 0
+scale3d Ring2: 2
 
-
-draw Vector1
-draw Curve
+draw Ring1
+draw Ring2
 
 --draw Box
 --draw Sphere

@@ -55,10 +55,6 @@ fill Cylinder: #orange
 fill Ring: #green
 
 
-move Ring: 0, 0, 0
-
-place Ring: V1
-
 draw Vector1
 draw Vector2
 draw Box
