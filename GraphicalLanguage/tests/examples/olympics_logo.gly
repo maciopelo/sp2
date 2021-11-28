@@ -33,8 +33,8 @@ circle BigCircle5: C5, BigRadius
 circle SmallCircle5: C5, SmallRadius
 fill BigCircle5: #yellow
 
-group<shapes> SmallCircles: SmallCircle1, SmallCircle2, SmallCircle3, SmallCircle4, SmallCircle5
-group<shapes> BigCircles: BigCircle1, BigCircle2, BigCircle3, BigCircle4, BigCircle5
+list<shapes> SmallCircles: SmallCircle1, SmallCircle2, SmallCircle3, SmallCircle4, SmallCircle5
+list<shapes> BigCircles: BigCircle1, BigCircle2, BigCircle3, BigCircle4, BigCircle5
 fill SmallCircles: #white
 
 draw BigCircles

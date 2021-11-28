@@ -1,5 +1,4 @@
--- expected behaviour - moving members in loop
-
+-- expected behaviour - moving all members of list
 
 num X: 600
 
@@ -16,18 +15,15 @@ point P7: 200, 50
 circle C: P4, 50
 segment S: P5, P6
 
-group<points> Points: P1, P2, P3
+list<points> Points: P1, P2, P3
 polygon Triangle: Points
 
 fill P7: #green
 fill C: #red
 fill S: #blue
 
-group<shapes> Shapes: Triangle, C, S, P7
+list<shapes> Shapes: Triangle, C, S, P7
 
 draw Shapes
-
-loop I start 1 until 4 step 2 then
-    move Shapes[I]: 300, 300
-    draw Shapes[I]
-end
+move Shapes: 300, 300
+draw Shapes

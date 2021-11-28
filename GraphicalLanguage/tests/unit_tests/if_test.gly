@@ -7,9 +7,9 @@ point P3: 300, 300
 
 num A: 3.14
 
-check  ^2.4=3 & _(A+0.5)=3 & ~A=3 then
+if  ^2.4=3 & _(A+0.5)=3 & ~A=3 then
     draw P1
-else check 2=1 then
+else if 2=1 then
     draw P2
 else then
     draw P3

@@ -15,10 +15,10 @@ point P7: 200, 50
 circle C: P4, 100
 segment S: P5, P6
 
-group<points> Points: P1, P2, P3
+list<points> Points: P1, P2, P3
 polygon Triangle: Points
 
-group<shapes> Shapes: C, S, Triangle, P7
+list<shapes> Shapes: C, S, Triangle, P7
 
 loop I start 0 until 4 step 2 then
     fill Shapes[I]: #red

@@ -1,4 +1,4 @@
--- expected behaviour - rotating all members of group
+-- expected behaviour - rotating all members of list
 
 num X: 600
 
@@ -18,14 +18,14 @@ point P8: 300, 300
 circle C: P4, 50
 segment S: P5, P6
 
-group<points> Points: P1, P2, P3
+list<points> Points: P1, P2, P3
 polygon Triangle: Points
 
 fill P7: #green
 fill C: #red
 fill S: #blue
 
-group<shapes> Shapes: Triangle, C, S, P7
+list<shapes> Shapes: Triangle, C, S, P7
 
 draw Shapes
 rotate Shapes: Angle, P8

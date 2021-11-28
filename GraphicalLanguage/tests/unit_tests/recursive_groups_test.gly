@@ -1,4 +1,4 @@
--- recursive definition of groups
+-- recursive definition of lists
 
 num X: 600
 
@@ -15,10 +15,10 @@ point P4: 150, 150
 point P5: 300, 500
 point P6: 150, 500
 
-group<points> A: P1, P2, P3
-group<drawables> B: A, P4, P5
-group<drawables> C: B, P6
-group<drawables> D: C, P1, P2, P3
+list<points> A: P1, P2, P3
+list<drawables> B: A, P4, P5
+list<drawables> C: B, P6
+list<drawables> D: C, P1, P2, P3
 
 --fill A: #red
 --draw A

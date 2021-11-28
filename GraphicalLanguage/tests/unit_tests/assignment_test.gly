@@ -14,7 +14,7 @@ point P2: 0, 0
 point P3: 0, 0
 point P4: 0, 0
 
-group<points> Points: P1, P2, P3, P4
+list<points> Points: P1, P2, P3, P4
 
 assign P: P0
 loop I start 0 until 4 step 1 then

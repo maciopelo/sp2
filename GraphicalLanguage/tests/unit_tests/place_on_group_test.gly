@@ -1,4 +1,4 @@
--- expected behaviour - placing all members of group
+-- expected behaviour - placing all members of list
 
 num X: 600
 
@@ -16,14 +16,14 @@ point P8: 400, 450
 circle C: P4, 50
 segment S: P5, P6
 
-group<points> Points: P3, P2, P1
+list<points> Points: P3, P2, P1
 polygon Triangle: Points
 
 fill P7: #green
 fill C: #red
 fill S: #blue
 
-group<shapes> Shapes: Triangle, C, S, P7
+list<shapes> Shapes: Triangle, C, S, P7
 
 draw Shapes
 place Shapes: P8
