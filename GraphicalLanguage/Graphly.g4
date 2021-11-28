@@ -235,6 +235,8 @@ transformation
 	| place 
 	| rotate 
 	| scale
+	| move3d
+	| scale3d
 	;
 
 fill 
