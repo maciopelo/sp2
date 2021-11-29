@@ -20,6 +20,7 @@ from exceptions.UnknownGroupTypeException import UnknownGroupTypeException
 from exceptions.BadTypeInExpressionException import BadTypeInExpressionException
 from exceptions.IllegalCharacterException import IllegalCharacterException
 from exceptions.FailedSaveException import FailedSaveException
+from exceptions.InstructionOutOfDrawModeScopeException import InstructionOutOfDrawModeScopeException
 
 
 from drawables import *
@@ -117,6 +118,11 @@ class GraphlyProgramVisitor(GraphlyVisitor):
     def check_if_group_member(self, name):
         return name[-1] == ']'
 
+    def check_draw_mode(self, expected_mode, instruction, ctx):
+        if expected_mode != self.mode:
+            raise InstructionOutOfDrawModeScopeException(ctx.start.line, instruction, self.mode)
+            
+
     def visitProgram(self, ctx: GraphlyParser.ProgramContext):
         self.scopes.append({})
         self.visitChildren(ctx)
@@ -157,6 +163,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitPoint(self, ctx: GraphlyParser.PointContext):
+        self.check_draw_mode('2D', 'point', ctx)
+
         name = ctx.NAME().getText()
 
         if not self.variable_exists(name):
@@ -170,6 +178,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
     def visitVector(self, ctx:GraphlyParser.VectorContext):
+        self.check_draw_mode('3D', 'vector', ctx)
+        
         name = ctx.NAME()
         
         if not self.variable_exists(name):
@@ -184,6 +194,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
     def visitSegment(self, ctx: GraphlyParser.SegmentContext):
+        self.check_draw_mode('2D', 'segment', ctx)
+        
         name = ctx.NAME(0).getText()
 
         if not self.variable_exists(name):
@@ -207,6 +219,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitCircle(self, ctx: GraphlyParser.CircleContext):
+        self.check_draw_mode('2D', 'circle', ctx)
+        
         name = ctx.NAME(0).getText()
 
         if not self.variable_exists(name):
@@ -226,6 +240,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             raise VariableAlreadyDeclaredException(ctx.start.line, name)
 
     def visitPolygon(self, ctx: GraphlyParser.PolygonContext):
+        self.check_draw_mode('2D', 'polygon', ctx)
+        
         name = ctx.NAME(0).getText()
 
         if not self.variable_exists(name):
@@ -250,6 +266,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitAxis(self, ctx:GraphlyParser.AxisContext):
+        self.check_draw_mode('3D', 'axis', ctx)
+        
         axis_name = ctx.NAME(0).getText()
         
 
@@ -275,6 +293,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitSphere(self, ctx:GraphlyParser.SphereContext):
+        self.check_draw_mode('3D', 'sphere', ctx)
+        
         name = ctx.NAME(0).getText()
         position_name = ctx.NAME(1).getText()
         radius = self.visit(ctx.radius)
@@ -294,6 +314,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitBox(self, ctx:GraphlyParser.BoxContext):
+        self.check_draw_mode('3D', 'box', ctx)
+        
         name = ctx.NAME(0).getText()
         position_vector_name = ctx.NAME(1).getText()
         size_vector_name = ctx.NAME(2).getText()
@@ -314,6 +336,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitCurve(self, ctx:GraphlyParser.CurveContext):
+        self.check_draw_mode('3D', 'curve', ctx)
+        
         name = ctx.NAME(0).getText()
 
         if not self.variable_exists(name):
@@ -338,6 +362,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitPyramid(self, ctx:GraphlyParser.PyramidContext):
+        self.check_draw_mode('3D', 'pyramid', ctx)
+        
         name = ctx.NAME(0).getText()
         position_vector_name = ctx.NAME(1).getText()
         size_vector_name = ctx.NAME(2).getText()
@@ -358,6 +384,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitRing(self, ctx:GraphlyParser.RingContext):
+        self.check_draw_mode('3D', 'ring', ctx)
+        
         ring_name = ctx.NAME(0).getText()
         
         if not self.variable_exists(ring_name):
@@ -382,6 +410,8 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
     def visitCylinder(self, ctx:GraphlyParser.CylinderContext):
+        self.check_draw_mode('3D', 'cylinder', ctx)
+        
         cylinder_name = ctx.NAME(0).getText()
         
         if not self.variable_exists(cylinder_name):
