@@ -567,13 +567,16 @@ class Axis(Drawable):
 
 class Cylinder(Drawable):
 
-    def __init__(self, name, inital_vec, terminal_vec, radius):
+    def __init__(self, name, inital_vec, terminal_vec, radius,screen):
         self.name = name
         self.inital_vec = inital_vec
         self.terminal_vec = terminal_vec
         self.radius = radius
         self.color = vec(1, 1, 1)
-        self.obj = None
+        self.obj = cylinder(radius=self.radius,
+                pos=vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
+                axis=vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z), 
+                color=self.color, canvas=screen, visible=False)
 
     def __str__(self):
         return f'<axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), #{self.color}>'
@@ -584,10 +587,9 @@ class Cylinder(Drawable):
 
     def draw(self, screen):
 
-        self.obj = cylinder(radius=self.radius,
-                pos=vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
-                axis=vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z), 
-                canvas=screen, color=self.color)
+        # self.obj.visible = True
+        copy = self.obj.clone()
+        copy.visible = True
     
     def move(self, x, y, z):
         self.inital_vec.x += x
@@ -597,6 +599,7 @@ class Cylinder(Drawable):
         self.terminal_vec.x += x
         self.terminal_vec.y += y
         self.terminal_vec.z += z
+
     
     def place(self, point):
         self.inital_vec.x = point.x
@@ -606,12 +609,14 @@ class Cylinder(Drawable):
         self.terminal_vec.x = point.x
         self.terminal_vec.y = point.y
         self.terminal_vec.z = point.z
+
     
     def rotate(self, axis, angle):
         init = axis.get_axis_initial_vec()
         term = axis.get_axis_terminal_vec()
         axis = (term[0]-init[0],term[1]-init[1],term[2]-init[2])
         self.obj.rotate(angle=radians(angle), origin=vec(*init), axis=vector(*axis))
+
     
     def scale3d(self, factor):
         self.radius *= factor

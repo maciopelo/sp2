@@ -424,7 +424,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
             if  type(initial_vec) == Vector and type(terminal_vec) == Vector:
                 radius = self.visit(ctx.expr())
-                cylinder = Cylinder(cylinder_name, initial_vec, terminal_vec, radius)
+                cylinder = Cylinder(cylinder_name, initial_vec, terminal_vec, radius,self.screen)
                 self.set_variable(cylinder_name, cylinder)
             else:
                 raise BadArgumentException(

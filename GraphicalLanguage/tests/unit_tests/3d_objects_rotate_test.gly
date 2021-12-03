@@ -68,9 +68,54 @@ vector RingTerm: 5, -5, 5
 ring Ring: RingInit, RingTerm, 1, 0.3
 
 
-draw Ring
 
---rotate Ring: 90, Axis
+
+
+
+rotate Cylinder: 181, Axis
+
+draw Cylinder
+
+rotate Cylinder: 33, Axis
+
+draw Cylinder
+
+rotate Cylinder: 33, Axis
+
+draw Cylinder
+
+rotate Cylinder: 33, Axis
+
+draw Cylinder
+
+rotate Cylinder: 33, Axis
+
+draw Cylinder
+
+rotate Cylinder: 33, Axis
+
+draw Cylinder
+
+rotate Cylinder: 33, Axis
+
+draw Cylinder
+
+rotate Cylinder: 33, Axis
+
+draw Cylinder
+
+rotate Cylinder: 33, Axis
+
+draw Cylinder
+
+rotate Cylinder: 33, Axis
+
+draw Cylinder
+
+rotate Cylinder: 180, Axis
+
+draw Cylinder
+
 
 
 
