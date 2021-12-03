@@ -1,0 +1,4 @@
+mode: 2D
+canvas: 600, 600, #black
+
+vector X: 1, 1, 1
