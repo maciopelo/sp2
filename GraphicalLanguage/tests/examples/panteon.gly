@@ -1,0 +1,44 @@
+mode: 3D
+canvas: 600, 600, #black
+
+-- drawing columns
+num Height: 100
+num Radius: 10
+
+vector Init1: -50, 0, 100
+vector Term: 0, Height, 0
+cylinder C1: Init1, Term, Radius
+
+vector Init2: 50, 0, 100
+cylinder C2: Init2, Term, Radius
+
+draw C1
+draw C2
+
+loop I start 0 until 4 step 1 then
+    move3d C1: 0, 0, -50
+    move3d C2: 0, 0, -50
+    draw C1
+    draw C2
+end
+
+-- drawing base
+vector BaseInit1: 0, 0, 0
+vector BaseSize: 130, 10, 230
+box Base: BaseInit1, BaseSize
+draw Base
+
+--drawing roof
+move3d Base: 0, Height, 0
+draw Base
+
+vector RotationAxisStart: 0, 0, 0
+vector RotationAxisEnd: 0, 100, 0
+axis RotationAxis: RotationAxisStart, RotationAxisEnd
+draw RotationAxis
+
+vector RoofInit: 25, 0, 0
+vector RoofSize: 130, 10, 230
+box Base: RoofInit, RoofSize
+draw Roof
+

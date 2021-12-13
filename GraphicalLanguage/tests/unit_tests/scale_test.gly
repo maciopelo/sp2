@@ -1,5 +1,5 @@
 -- test several cases of place transformation
-
+mode: 2D
 -- basic setup
 num X: 600
 

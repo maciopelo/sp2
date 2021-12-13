@@ -280,7 +280,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
 
 
             if  type(initial_vec) == Vector and type(terminal_vec) == Vector:
-                axis = Axis(axis_name, initial_vec, terminal_vec)
+                axis = Axis(axis_name, initial_vec, terminal_vec, self.screen)
                 self.set_variable(axis_name, axis)
             else:
                 raise BadArgumentException(
@@ -325,7 +325,7 @@ class GraphlyProgramVisitor(GraphlyVisitor):
             size = self.get_variable(size_vector_name,ctx)
             
             if type(position) == Vector and type(size) == Vector:
-                box = Box(name,position,size)
+                box = Box(name,position,size, self.screen)
                 self.set_variable(name,box)
             else:
                 if type(position) != Vector:

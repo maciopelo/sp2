@@ -9,16 +9,14 @@ vector Vector2: 0, 0, 5
 
 
 -- BOX
-vector BoxInit1: 5, 5, 0
+vector BoxInit: 5, 5, 0
 vector BoxSize: 1, 2, 3
-box Box: BoxInit1, BoxSize
+box Box: BoxInit, BoxSize
 
 
 -- SPHERE
-vector SphereInit1: 0, 0, 0
-vector SphereInit2: 0, 0, 0
-sphere Sphere1: SphereInit1, 2
-sphere Sphere2: SphereInit2, 2
+vector SphereInit: -5, 5, 0
+sphere Sphere: SphereInit, 2
 
 
 -- CURVE
@@ -36,8 +34,8 @@ axis Axis: AxisInit, AxisTerm
 
 
 -- CYLINDER
-vector CylinderInit: 6, 6, 0
-vector CylinderTerm: 9, 9, 0
+vector CylinderInit: 6, 6, 6
+vector CylinderTerm: 9, 9, 9
 cylinder Cylinder: CylinderInit, CylinderTerm, 1
 
 
@@ -46,17 +44,22 @@ vector RingInit: 3, -3, 3
 vector RingTerm: 5, -5, 5
 ring Ring: RingInit, RingTerm, 1, 0.3
 
-draw Cylinder 
 
-move3d Cylinder: 3, 0, 0
+
+fill Vector1: #pink
+fill Box: #red
+fill Sphere: #yellow
+fill Curve: #gray
+fill Axis: #blue
+fill Cylinder: #orange
+fill Ring: #green
 
 
 draw Vector1
+draw Vector2
+draw Box
+draw Sphere
+draw Curve
+draw Axis
 draw Cylinder
-
---draw Box
---draw Sphere
---draw Curve
---draw Axis
---draw Cylinder
---draw Ring
+draw Ring
