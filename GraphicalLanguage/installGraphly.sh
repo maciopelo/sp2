@@ -13,4 +13,4 @@ if [ $# -ne 2 ]
     exit 1
 fi
 
-echo "alias Graphly='python3 $1/main.py'" >> $2/.bashrc
+echo "alias graphly='python3 $1/main.py'" >> $2/.bashrc

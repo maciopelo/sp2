@@ -23,32 +23,6 @@ draw Y
 draw Z
 
 
--- VECTOR
-vector Vector1: 0, 0, 0
-vector Vector2: 0, 5, 0
-
-
--- BOX
-vector BoxInit1: 5, 5, 0
-vector BoxSize: 1, 2, 3
-box Box: BoxInit1, BoxSize
-
-
--- SPHERE
-vector SphereInit1: 0, 0, 0
-vector SphereInit2: 0, 0, 0
-sphere Sphere1: SphereInit1, 2
-sphere Sphere2: SphereInit2, 2
-
-
--- CURVE
-vector V0: 0, 0, 0
-vector V1: 0, 0, -5
-vector V2: 0, 10 ,-5
-list<vectors> Vectors: V0, V1, V2
-curve Curve: Vectors
-
-
 -- AXIS
 vector AxisInit: 2, 0, 0
 vector AxisTerm: 2, 4, 0
@@ -68,60 +42,11 @@ vector RingTerm: 5, -5, 5
 ring Ring: RingInit, RingTerm, 1, 0.3
 
 
-
-
-
-
-rotate Cylinder: 181, Axis
-
 draw Cylinder
 
-rotate Cylinder: 33, Axis
+loop I start 0 until 10 step 1 then
+    rotate Cylinder: 33, Axis
+    draw Cylinder
+end
 
-draw Cylinder
-
-rotate Cylinder: 33, Axis
-
-draw Cylinder
-
-rotate Cylinder: 33, Axis
-
-draw Cylinder
-
-rotate Cylinder: 33, Axis
-
-draw Cylinder
-
-rotate Cylinder: 33, Axis
-
-draw Cylinder
-
-rotate Cylinder: 33, Axis
-
-draw Cylinder
-
-rotate Cylinder: 33, Axis
-
-draw Cylinder
-
-rotate Cylinder: 33, Axis
-
-draw Cylinder
-
-rotate Cylinder: 33, Axis
-
-draw Cylinder
-
-rotate Cylinder: 180, Axis
-
-draw Cylinder
-
-
-
-
-
---draw Sphere
---draw Curve
 draw Axis
---draw Cylinder
---draw Ring
