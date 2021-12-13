@@ -1,0 +1,18 @@
+mode: 3D
+canvas: 600, 600, #black
+
+num Radius: 100
+num Delta: -200
+num Scale: 1.2
+
+vector SphereCenter: 0, 0, 220
+sphere S: SphereCenter, Radius
+draw S
+
+move3d S: 0, Delta, 0
+scale3d S: Scale
+draw S
+
+move3d S: 0, Delta, 0
+scale3d S: Scale
+draw S

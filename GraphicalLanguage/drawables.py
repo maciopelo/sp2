@@ -312,18 +312,24 @@ class Vector(Drawable):
 
 
 class Box(Drawable):
-    def __init__(self, name, position, size):
+    def __init__(self, name, position, size, screen):
         self.position = position
         self.size = size
         self.name = name
         self.color = vec(1, 1, 1)
+        self.screen = screen
         self.obj = None
+        self.update_shape()
+
+    def update_shape(self):
+        self.obj = box(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=self.screen, color=self.color, visible=False)
 
     def get_coordination_tuple(self):
         return self.position.x, self.position.y, self.position.z
     
     def fill(self, color):
         self.color = vec(*self.normalize_rgb(color))
+        self.update_shape()
     
     def get_size_tuple(self):
         return self.size.x, self.size.y, self.size.z
@@ -332,18 +338,21 @@ class Box(Drawable):
         return f'box, {self.name}, [({self.position.x}, {self.position.y}, {self.position.z}),({self.size.x},{self.size.y}, {self.size.z})], #{self.color}'
 
     def draw(self, screen):
-        self.obj = box(pos = vec(*self.get_coordination_tuple()), size = vec(*self.get_size_tuple()), canvas=screen, color=self.color)
+        copy = self.obj.clone()
+        copy.visible = True
 
 
     def move(self, x, y, z):
         self.position.x += x
         self.position.y += y
         self.position.z += z
+        self.update_shape()
     
     def place(self, point):
-        self.x = point.x
-        self.y = point.y
-        self.z = point.z
+        self.position.x = point.x
+        self.position.y = point.y
+        self.position.z = point.z
+        self.update_shape()
     
     def rotate(self, axis, angle):
         init = axis.get_axis_initial_vec()
@@ -355,6 +364,7 @@ class Box(Drawable):
         self.size.x *= factor
         self.size.y *= factor
         self.size.z *= factor
+        self.update_shape()
 
 
 
@@ -501,12 +511,14 @@ class Curve(Drawable):
 
 class Axis(Drawable):
 
-    def __init__(self, name, inital_vec, terminal_vec):
+    def __init__(self, name, inital_vec, terminal_vec, screen):
         self.name = name
         self.inital_vec = inital_vec
         self.terminal_vec = terminal_vec
         self.color = vec(1, 1, 1)
+        self.screen = screen
         self.obj = None
+        self.update_shape()
 
     def get_axis_length(self):
         return sqrt(
@@ -528,12 +540,19 @@ class Axis(Drawable):
         return f'axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), length: {round(self.get_axis_length(),2)}, #{self.color}'
 
     def draw(self, screen):
+        # copy = self.obj.clone()
+        # copy.visible = True
+        curve(pos=[vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
+                vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z)], 
+            canvas=self.screen, color=self.color)
 
+    def update_shape(self):
         self.obj = curve(pos=[vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
                 vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z)], 
-            canvas=screen, color=self.color)
+            canvas=self.screen, color=self.color, visible=False)
     
     def move(self, x, y, z):
+        a = self.inital_vec.x
         self.inital_vec.x += x
         self.inital_vec.y += y
         self.inital_vec.z += z
@@ -541,6 +560,8 @@ class Axis(Drawable):
         self.terminal_vec.x += x
         self.terminal_vec.y += y
         self.terminal_vec.z += z
+        
+        self.update_shape()
     
     def place(self, point):
         self.inital_vec.x = point.x
@@ -550,6 +571,8 @@ class Axis(Drawable):
         self.terminal_vec.x = point.x
         self.terminal_vec.y = point.y
         self.terminal_vec.z = point.z
+        
+        self.update_shape()
     
     def rotate(self, axis, angle):
         init = axis.get_axis_initial_vec()
@@ -561,6 +584,7 @@ class Axis(Drawable):
         self.terminal_vec.x *= factor
         self.terminal_vec.y *= factor
         self.terminal_vec.z *= factor
+        self.update_shape()
 
 
 
@@ -573,10 +597,15 @@ class Cylinder(Drawable):
         self.terminal_vec = terminal_vec
         self.radius = radius
         self.color = vec(1, 1, 1)
+        self.screen = screen
+        self.obj = None
+        self.update_shape()
+
+    def update_shape(self):
         self.obj = cylinder(radius=self.radius,
                 pos=vec(self.inital_vec.x,self.inital_vec.y,self.inital_vec.z), 
                 axis=vec(self.terminal_vec.x,self.terminal_vec.y,self.terminal_vec.z), 
-                color=self.color, canvas=screen, visible=False)
+                color=self.color, canvas=self.screen, visible=False)
 
     def __str__(self):
         return f'<axis, {self.name}, ({self.inital_vec}, {self.terminal_vec}), #{self.color}>'
@@ -584,10 +613,9 @@ class Cylinder(Drawable):
 
     def fill(self, color):
         self.color = vec(*self.normalize_rgb(color))
+        self.update_shape()
 
     def draw(self, screen):
-
-        # self.obj.visible = True
         copy = self.obj.clone()
         copy.visible = True
     
@@ -596,9 +624,11 @@ class Cylinder(Drawable):
         self.inital_vec.y += y
         self.inital_vec.z += z
 
-        self.terminal_vec.x += x
-        self.terminal_vec.y += y
-        self.terminal_vec.z += z
+        # self.terminal_vec.x += x
+        # self.terminal_vec.y += y
+        # self.terminal_vec.z += z
+
+        self.update_shape()
 
     
     def place(self, point):
@@ -606,9 +636,11 @@ class Cylinder(Drawable):
         self.inital_vec.y = point.y
         self.inital_vec.z = point.z
 
-        self.terminal_vec.x = point.x
-        self.terminal_vec.y = point.y
-        self.terminal_vec.z = point.z
+        # self.terminal_vec.x = point.x
+        # self.terminal_vec.y = point.y
+        # self.terminal_vec.z = point.z
+        
+        self.update_shape()
 
     
     def rotate(self, axis, angle):
@@ -620,6 +652,8 @@ class Cylinder(Drawable):
     
     def scale3d(self, factor):
         self.radius *= factor
+        
+        self.update_shape()
 
 
 class Ring(Drawable):
